@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
 import heroStadium from "@/assets/hero-stadium.jpg";
-import Countdown from "./Countdown";
-import FootballPlayers from "./FootballPlayers";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Football Players */}
-      <FootballPlayers />
       {/* Background Image with Ken Burns effect */}
       <motion.div 
         className="absolute inset-0"
@@ -122,9 +118,6 @@ const HeroSection = () => {
             SAIBA MAIS
           </motion.a>
         </motion.div>
-
-        {/* Countdown Timer */}
-        <Countdown />
       </div>
 
       {/* Scroll Indicator - positioned below countdown */}
