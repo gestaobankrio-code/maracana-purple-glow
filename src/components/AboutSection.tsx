@@ -39,21 +39,6 @@ const AboutSection = () => {
         transition={{ duration: 6, repeat: Infinity }}
       />
 
-      {/* Floating soccer balls */}
-      <motion.div
-        className="absolute top-20 right-20 text-4xl opacity-20"
-        animate={{ y: [0, -20, 0], rotate: 360 }}
-        transition={{ duration: 5, repeat: Infinity }}
-      >
-        ⚽
-      </motion.div>
-      <motion.div
-        className="absolute bottom-40 left-20 text-3xl opacity-15"
-        animate={{ y: [0, 15, 0], rotate: -360 }}
-        transition={{ duration: 7, repeat: Infinity }}
-      >
-        ⚽
-      </motion.div>
 
       <div className="container mx-auto px-6">
         <motion.div
@@ -63,7 +48,8 @@ const AboutSection = () => {
           className="text-center mb-16"
         >
           <motion.h2
-            className="font-display italic text-4xl md:text-6xl lg:text-7xl text-foreground mb-4"
+            className="font-display italic text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-4 drop-shadow-lg"
+            style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -71,7 +57,8 @@ const AboutSection = () => {
             O CAMAROTE
           </motion.h2>
           <motion.h2
-            className="font-display italic text-5xl md:text-7xl lg:text-8xl text-outline-white"
+            className="font-display italic text-5xl md:text-7xl lg:text-8xl text-primary font-bold drop-shadow-lg"
+            style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
