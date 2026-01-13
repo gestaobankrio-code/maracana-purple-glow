@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import camaroteImg from "@/assets/camarote.jpg";
+import flamengoFans from "@/assets/flamengo-fans.jpg";
 
 const AboutSection = () => {
   const ref = useRef(null);
@@ -16,6 +17,16 @@ const AboutSection = () => {
 
   return (
     <section id="sobre" ref={ref} className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background Image - Flamengo Fans */}
+      <div className="absolute inset-0">
+        <img
+          src={flamengoFans}
+          alt="Torcida do Flamengo"
+          className="w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-background/95" />
+      </div>
+
       {/* Background Decorations */}
       <motion.div
         className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
