@@ -94,11 +94,6 @@ const AboutSection = () => {
               alt="Camarote InvestSmart"
               className="relative rounded-2xl w-full box-glow"
             />
-            <motion.div
-              className="absolute -bottom-4 -right-4 w-24 h-24 border-4 border-primary rounded-lg"
-              animate={{ rotate: [0, 5, -5, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
           </motion.div>
 
           {/* Features */}
