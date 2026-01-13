@@ -13,7 +13,6 @@ const FormSection = () => {
     name: "",
     email: "",
     phone: "",
-    cpf: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +27,7 @@ const FormSection = () => {
       description: "Boa sorte no sorteio! Entraremos em contato em breve.",
     });
 
-    setFormData({ name: "", email: "", phone: "", cpf: "" });
+    setFormData({ name: "", email: "", phone: "" });
     setIsSubmitting(false);
   };
 
@@ -112,20 +111,6 @@ const FormSection = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="(00) 00000-0000"
-                  required
-                  className="bg-background/50 border-border focus:border-primary h-12"
-                />
-              </div>
-
-              <div>
-                <label className="block text-foreground font-medium mb-2">
-                  CPF
-                </label>
-                <Input
-                  name="cpf"
-                  value={formData.cpf}
-                  onChange={handleChange}
-                  placeholder="000.000.000-00"
                   required
                   className="bg-background/50 border-border focus:border-primary h-12"
                 />
