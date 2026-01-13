@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import fansCelebrating from "@/assets/fans-celebrating.jpg";
 
 interface TimeLeft {
   days: number;
@@ -55,7 +56,17 @@ const CountdownSection = () => {
   ];
 
   return (
-    <section ref={ref} className="py-16 md:py-24 relative overflow-hidden bg-primary">
+    <section ref={ref} className="py-16 md:py-24 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={fansCelebrating}
+          alt="Torcedores celebrando"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-primary/80" />
+      </div>
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{ 
