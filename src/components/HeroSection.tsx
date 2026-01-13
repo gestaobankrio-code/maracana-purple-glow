@@ -43,17 +43,28 @@ const HeroSection = () => {
         />
       ))}
 
-      {/* Floating particles */}
+      {/* Floating soccer balls */}
       <motion.div
-        className="absolute top-1/3 left-1/4 w-4 h-4 bg-primary/30 rounded-full"
-        animate={{ y: [0, -30, 0], opacity: [0.3, 0.8, 0.3] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
+        className="absolute top-1/4 left-[10%] text-5xl opacity-30"
+        animate={{ y: [0, -30, 0], rotate: 360 }}
+        transition={{ duration: 6, repeat: Infinity }}
+      >
+        ⚽
+      </motion.div>
       <motion.div
-        className="absolute top-1/2 right-1/4 w-6 h-6 bg-primary/20 rounded-full"
-        animate={{ y: [0, 20, 0], opacity: [0.2, 0.6, 0.2] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      />
+        className="absolute top-1/3 right-[15%] text-4xl opacity-20"
+        animate={{ y: [0, 20, 0], rotate: -360 }}
+        transition={{ duration: 8, repeat: Infinity }}
+      >
+        ⚽
+      </motion.div>
+      <motion.div
+        className="absolute bottom-1/3 left-[20%] text-3xl opacity-15"
+        animate={{ y: [0, 15, 0], x: [0, 10, 0] }}
+        transition={{ duration: 5, repeat: Infinity }}
+      >
+        ⚽
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-20">

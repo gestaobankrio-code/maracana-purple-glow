@@ -10,6 +10,8 @@ const AboutSection = () => {
   const features = [
     { icon: "📺", title: "Vista Privilegiada", desc: "A melhor visão do gramado" },
     { icon: "⭐", title: "Experiência VIP", desc: "Tratamento exclusivo do início ao fim" },
+    { icon: "🎉", title: "Momento Único", desc: "Viva a emoção do Maracanã" },
+    { icon: "🏆", title: "Prêmio Exclusivo", desc: "Sorteio para clientes especiais" },
   ];
 
   return (
