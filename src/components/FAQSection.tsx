@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import heroStadium from "@/assets/hero-stadium.jpg";
 
 const FAQSection = () => {
   const ref = useRef(null);
@@ -49,8 +50,18 @@ const FAQSection = () => {
     <section
       id="faq"
       ref={ref}
-      className="py-24 md:py-32 relative overflow-hidden bg-primary"
+      className="py-24 md:py-32 relative overflow-hidden"
     >
+      {/* Stadium Background */}
+      <div className="absolute inset-0">
+        <img
+          src={heroStadium}
+          alt="Stadium Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-primary/85" />
+      </div>
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{ 

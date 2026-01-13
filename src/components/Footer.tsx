@@ -27,33 +27,9 @@ const Footer = () => {
             <img
               src={logoInvestSmart}
               alt="InvestSmart XP"
-              className="h-12 w-auto"
+              className="h-8 w-auto"
             />
           </motion.div>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-6">
-            {[
-              { icon: "📷", label: "Instagram" },
-              { icon: "📘", label: "Facebook" },
-              { icon: "🐦", label: "Twitter" },
-              { icon: "📺", label: "YouTube" },
-            ].map((social, index) => (
-              <motion.a
-                key={social.label}
-                href="#"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                whileHover={{ scale: 1.2, y: -5 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 rounded-full bg-card/50 border border-border/50 flex items-center justify-center text-xl hover:border-primary/50 hover:bg-primary/10 transition-colors cursor-pointer"
-                title={social.label}
-              >
-                {social.icon}
-              </motion.a>
-            ))}
-          </div>
 
           {/* Badge */}
           <motion.div
@@ -61,13 +37,13 @@ const Footer = () => {
             whileHover={{ scale: 1.05 }}
           >
             <motion.div
-              className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center"
               animate={{ rotate: [0, 5, -5, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
             >
               <svg
-                width="20"
-                height="24"
+                width="16"
+                height="20"
                 viewBox="0 0 100 120"
                 className="text-primary"
               >
@@ -79,7 +55,7 @@ const Footer = () => {
                 />
               </svg>
             </motion.div>
-            <span className="font-display text-lg text-foreground/80 tracking-wider">
+            <span className="font-display text-base text-foreground/80 tracking-wider">
               TORCIDA INVESTSMART
             </span>
           </motion.div>
