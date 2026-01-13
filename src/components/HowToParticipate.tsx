@@ -31,7 +31,11 @@ const HowToParticipate = () => {
       className="py-24 md:py-32 bg-gradient-to-b from-background via-card to-background relative"
     >
       {/* Shield decoration */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5">
+      <motion.div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5"
+        animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      >
         <svg
           width="600"
           height="700"
@@ -45,7 +49,19 @@ const HowToParticipate = () => {
             strokeWidth="2"
           />
         </svg>
-      </div>
+      </motion.div>
+
+      {/* Animated lines */}
+      <motion.div
+        className="absolute top-20 left-0 w-1/3 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+        animate={{ x: ["-100%", "400%"] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-0 w-1/4 h-0.5 bg-gradient-to-l from-transparent via-primary/20 to-transparent"
+        animate={{ x: ["100%", "-400%"] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
 
       <div className="container mx-auto px-6 relative">
         <motion.div
@@ -54,12 +70,22 @@ const HowToParticipate = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <h2 className="font-display italic text-4xl md:text-6xl lg:text-7xl text-primary mb-2">
+          <motion.h2
+            className="font-display italic text-4xl md:text-6xl lg:text-7xl text-primary mb-2"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
             COMO
-          </h2>
-          <h2 className="font-display italic text-5xl md:text-7xl lg:text-8xl text-foreground">
+          </motion.h2>
+          <motion.h2
+            className="font-display italic text-5xl md:text-7xl lg:text-8xl text-foreground"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             PARTICIPAR
-          </h2>
+          </motion.h2>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
@@ -72,23 +98,38 @@ const HowToParticipate = () => {
               className="relative flex items-start gap-6 mb-12 last:mb-0"
             >
               {/* Number */}
-              <div className="flex-shrink-0 w-20 h-20 rounded-full gradient-purple flex items-center justify-center box-glow">
+              <motion.div
+                className="flex-shrink-0 w-20 h-20 rounded-full gradient-purple flex items-center justify-center box-glow"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+                animate={{ boxShadow: ["0 0 20px hsl(258 96% 70% / 0.5)", "0 0 40px hsl(258 96% 70% / 0.8)", "0 0 20px hsl(258 96% 70% / 0.5)"] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 <span className="font-display text-3xl text-foreground">
                   {step.number}
                 </span>
-              </div>
+              </motion.div>
 
               {/* Content */}
-              <div className="pt-2">
+              <motion.div
+                className="pt-2"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
                 <h3 className="font-display text-2xl md:text-3xl text-foreground mb-2">
                   {step.title}
                 </h3>
                 <p className="text-muted-foreground text-lg">{step.description}</p>
-              </div>
+              </motion.div>
 
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="absolute left-10 top-20 w-0.5 h-16 bg-gradient-to-b from-primary to-transparent" />
+                <motion.div
+                  className="absolute left-10 top-20 w-0.5 h-16 bg-gradient-to-b from-primary to-transparent"
+                  initial={{ scaleY: 0 }}
+                  animate={isInView ? { scaleY: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
+                  style={{ originY: 0 }}
+                />
               )}
             </motion.div>
           ))}
@@ -101,12 +142,14 @@ const HowToParticipate = () => {
           transition={{ duration: 0.5, delay: 0.8 }}
           className="text-center mt-16"
         >
-          <a
+          <motion.a
             href="#inscricao"
-            className="inline-block gradient-purple px-12 py-5 rounded-full font-display text-2xl tracking-widest text-foreground hover:scale-105 transition-transform box-glow-strong"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block gradient-purple px-12 py-5 rounded-full font-display text-2xl tracking-widest text-foreground box-glow-strong"
           >
             INSCREVA-SE AGORA
-          </a>
+          </motion.a>
         </motion.div>
       </div>
     </section>
