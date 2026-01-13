@@ -55,11 +55,15 @@ const CountdownSection = () => {
   ];
 
   return (
-    <section ref={ref} className="py-16 md:py-24 relative overflow-hidden bg-gradient-to-b from-background via-card/50 to-background">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5" />
+    <section ref={ref} className="py-16 md:py-24 relative overflow-hidden bg-primary">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{ 
+          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 40px)` 
+        }} />
+      </div>
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl"
         animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 5, repeat: Infinity }}
       />
@@ -71,10 +75,10 @@ const CountdownSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground mb-2">
+          <h2 className="font-display text-3xl md:text-5xl lg:text-6xl text-white mb-2">
             TEMPO RESTANTE PARA
           </h2>
-          <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-primary">
+          <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-white/90">
             O SORTEIO
           </h2>
         </motion.div>
@@ -98,22 +102,22 @@ const CountdownSection = () => {
                 }}
                 className="relative"
               >
-                <div className="bg-card/80 backdrop-blur-md border border-border/50 rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] box-glow group hover:scale-105 transition-transform">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] group hover:scale-105 transition-transform hover:bg-white/20">
                   <motion.span
                     key={unit.value}
                     initial={{ y: -20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    className="block text-4xl md:text-6xl font-display text-foreground text-center"
+                    className="block text-4xl md:text-6xl font-display text-white text-center"
                   >
                     {String(unit.value).padStart(2, "0")}
                   </motion.span>
-                  <span className="block text-xs md:text-sm text-primary font-medium text-center mt-2 tracking-widest">
+                  <span className="block text-xs md:text-sm text-white/80 font-medium text-center mt-2 tracking-widest">
                     {unit.label}
                   </span>
                 </div>
                 {/* Separator */}
                 {index < timeUnits.length - 1 && (
-                  <span className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 text-primary text-3xl md:text-5xl font-bold animate-pulse">
+                  <span className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 text-white text-3xl md:text-5xl font-bold animate-pulse">
                     :
                   </span>
                 )}
@@ -132,7 +136,7 @@ const CountdownSection = () => {
             href="#inscricao"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block gradient-purple px-10 py-4 rounded-full font-display text-xl tracking-widest text-foreground box-glow-strong"
+            className="inline-block bg-white text-primary px-10 py-4 rounded-full font-display text-xl tracking-widest shadow-lg hover:shadow-xl transition-shadow"
           >
             INSCREVA-SE AGORA
           </motion.a>
