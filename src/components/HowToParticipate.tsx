@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import heroStadium from "@/assets/hero-stadium.jpg";
 
 const HowToParticipate = () => {
   const ref = useRef(null);
@@ -28,8 +29,17 @@ const HowToParticipate = () => {
     <section
       id="como-participar"
       ref={ref}
-      className="py-24 md:py-32 bg-gradient-to-b from-background via-card to-background relative"
+      className="py-24 md:py-32 relative overflow-hidden"
     >
+      {/* Stadium Background */}
+      <div className="absolute inset-0">
+        <img
+          src={heroStadium}
+          alt="Stadium Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/90" />
+      </div>
       {/* Shield decoration */}
       <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5"

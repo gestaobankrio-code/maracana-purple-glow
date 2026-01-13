@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import heroStadium from "@/assets/hero-stadium.jpg";
 
 const FormSection = () => {
   const ref = useRef(null);
@@ -41,8 +42,16 @@ const FormSection = () => {
       ref={ref}
       className="py-24 md:py-32 relative overflow-hidden"
     >
+      {/* Stadium Background */}
+      <div className="absolute inset-0">
+        <img
+          src={heroStadium}
+          alt="Stadium Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/85" />
+      </div>
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent" />
       <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
 

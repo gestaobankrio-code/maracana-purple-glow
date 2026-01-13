@@ -49,12 +49,16 @@ const FAQSection = () => {
     <section
       id="faq"
       ref={ref}
-      className="py-24 md:py-32 relative overflow-hidden"
+      className="py-24 md:py-32 relative overflow-hidden bg-primary"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-card via-background to-background" />
-      <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{ 
+          backgroundImage: `repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 40px)` 
+        }} />
+      </div>
+      <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-6 relative">
         <motion.div
@@ -63,10 +67,10 @@ const FAQSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display italic text-4xl md:text-6xl lg:text-7xl text-primary mb-2">
+          <h2 className="font-display italic text-4xl md:text-6xl lg:text-7xl text-white/90 mb-2">
             PERGUNTAS
           </h2>
-          <h2 className="font-display italic text-5xl md:text-7xl lg:text-8xl text-foreground">
+          <h2 className="font-display italic text-5xl md:text-7xl lg:text-8xl text-white">
             FREQUENTES
           </h2>
         </motion.div>
@@ -87,12 +91,12 @@ const FAQSection = () => {
               >
                 <AccordionItem
                   value={`item-${index}`}
-                  className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl px-6 hover:border-primary/50 transition-colors overflow-hidden"
+                  className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 hover:border-white/40 transition-colors overflow-hidden"
                 >
-                  <AccordionTrigger className="font-display text-lg md:text-xl text-foreground hover:text-primary transition-colors py-5 [&[data-state=open]>svg]:text-primary">
+                  <AccordionTrigger className="font-display text-lg md:text-xl text-white hover:text-white/80 transition-colors py-5 [&[data-state=open]>svg]:text-white">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5 text-base leading-relaxed">
+                  <AccordionContent className="text-white/80 pb-5 text-base leading-relaxed">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
