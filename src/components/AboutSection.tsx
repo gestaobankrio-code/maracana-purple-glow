@@ -8,8 +8,6 @@ const AboutSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const features = [
-    { icon: "🥂", title: "Open Bar Premium", desc: "Bebidas selecionadas durante todo o jogo" },
-    { icon: "🍽️", title: "Buffet Exclusivo", desc: "Gastronomia de primeira qualidade" },
     { icon: "📺", title: "Vista Privilegiada", desc: "A melhor visão do gramado" },
     { icon: "⭐", title: "Experiência VIP", desc: "Tratamento exclusivo do início ao fim" },
   ];

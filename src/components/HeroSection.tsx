@@ -44,17 +44,7 @@ const HeroSection = () => {
         />
       ))}
 
-      {/* Decorative Elements */}
-      <motion.div
-        className="absolute top-20 right-10 w-32 h-32 border-2 border-primary/30"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div
-        className="absolute bottom-40 left-10 w-20 h-20 border border-primary/20"
-        animate={{ rotate: -360, scale: [1, 1.2, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-      />
+      {/* Floating particles */}
       <motion.div
         className="absolute top-1/3 left-1/4 w-4 h-4 bg-primary/30 rounded-full"
         animate={{ y: [0, -30, 0], opacity: [0.3, 0.8, 0.3] }}
