@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
 import heroStadium from "@/assets/hero-stadium.jpg";
+import { CheckCircle, Ticket, Users, Star } from "lucide-react";
 
 const HeroSection = () => {
+  const supportElements = [
+    { icon: Ticket, text: "300 ingressos no total" },
+    { icon: Users, text: "150 pares distribuídos em vários sorteios" },
+    { icon: Star, text: "Experiência premium em camarote" },
+    { icon: CheckCircle, text: "Participação para quem se inscrever e abrir conta" },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Ken Burns effect */}
+      {/* Background Image */}
       <motion.div 
         className="absolute inset-0"
         initial={{ scale: 1.1 }}
@@ -16,18 +24,18 @@ const HeroSection = () => {
           alt="Maracanã Stadium"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
       </motion.div>
 
       {/* Animated Particles */}
-      {[...Array(20)].map((_, i) => (
+      {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-primary rounded-full"
           initial={{
-            x: Math.random() * window.innerWidth,
-            y: window.innerHeight + 20,
+            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+            y: (typeof window !== 'undefined' ? window.innerHeight : 800) + 20,
             opacity: 0.5,
           }}
           animate={{
@@ -43,7 +51,6 @@ const HeroSection = () => {
         />
       ))}
 
-
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center pt-20">
         <motion.div
@@ -51,69 +58,90 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
+          {/* Headline */}
           <motion.h1
-            className="font-display italic text-6xl md:text-8xl lg:text-9xl text-foreground mb-4 text-glow"
+            className="font-display text-4xl md:text-6xl lg:text-7xl text-foreground mb-2 text-glow"
             animate={{ textShadow: ["0 0 30px hsl(258 96% 70% / 0.5)", "0 0 60px hsl(258 96% 70% / 0.8)", "0 0 30px hsl(258 96% 70% / 0.5)"] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            TORÇA COM
+            O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="font-display italic text-7xl md:text-9xl lg:text-[12rem] text-outline mb-8 leading-none"
-            initial={{ letterSpacing: "0.5em", opacity: 0 }}
-            animate={{ letterSpacing: "0.05em", opacity: 1 }}
+            className="font-display text-5xl md:text-7xl lg:text-8xl text-primary mb-4"
+            initial={{ letterSpacing: "0.3em", opacity: 0 }}
+            animate={{ letterSpacing: "0.02em", opacity: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
-            GARRA
+            seu próximo destino
           </motion.h1>
+          <motion.p
+            className="font-display text-2xl md:text-3xl text-foreground/90 mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Camarote exclusivo InvestSmart
+          </motion.p>
         </motion.div>
 
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-xl md:text-2xl text-foreground/90 max-w-xl mx-auto mb-10"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Sua paixão pode te levar direto ao{" "}
-          <motion.span
-            className="text-primary font-semibold"
-            animate={{ opacity: [1, 0.6, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            camarote do Maracanã
-          </motion.span>
+          Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
+          <span className="text-primary font-semibold">camarote exclusivo</span>.
         </motion.p>
 
+        {/* Support Elements */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10"
+        >
+          {supportElements.map((element, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+              className="bg-card/50 backdrop-blur-sm border border-border/30 rounded-xl p-4 text-center"
+            >
+              <element.icon className="w-6 h-6 text-primary mx-auto mb-2" />
+              <p className="text-sm text-foreground/90">{element.text}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex flex-col items-center gap-3"
         >
           <motion.a
             href="#inscricao"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="gradient-purple px-10 py-4 rounded-full font-display text-xl tracking-widest text-foreground box-glow-strong animate-pulse-glow"
+            className="gradient-purple px-10 py-4 rounded-full font-display text-lg md:text-xl tracking-wider text-foreground box-glow-strong animate-pulse-glow"
           >
-            QUERO PARTICIPAR
+            Quero concorrer aos ingressos
           </motion.a>
-          <motion.a
-            href="#sobre"
-            whileHover={{ scale: 1.05, borderColor: "hsl(258 96% 70%)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-4 rounded-full font-display text-xl tracking-widest text-foreground border-2 border-primary hover:bg-primary/10 transition-colors"
-          >
-            SAIBA MAIS
-          </motion.a>
+          <p className="text-sm text-muted-foreground">
+            Abertura de conta gratuita na XP via InvestSmart
+          </p>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - positioned below countdown */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 1.2 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div

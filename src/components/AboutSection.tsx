@@ -1,132 +1,137 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import camaroteImg from "@/assets/camarote.jpg";
-import flamengoFans from "@/assets/flamengo-fans.jpg";
+import { Building2, Users, DollarSign, MapPin, Shield, HeadphonesIcon, BadgeCheck, Briefcase } from "lucide-react";
+import logoInvestsmart from "@/assets/logo-investsmart.png";
 
 const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const features = [
-    { icon: "📺", title: "Vista Privilegiada", desc: "A melhor visão do gramado" },
-    { icon: "⭐", title: "Experiência VIP", desc: "Tratamento exclusivo do início ao fim" },
-    { icon: "🎉", title: "Momento Único", desc: "Viva a emoção do Maracanã" },
-    { icon: "🏆", title: "Prêmio Exclusivo", desc: "Sorteio para clientes especiais" },
+  const stats = [
+    { value: "29", suffix: "bilhões", prefix: "Mais de R$", desc: "sob custódia", icon: DollarSign },
+    { value: "100", suffix: "", prefix: "Mais de", desc: "escritórios no Brasil", icon: Building2 },
+    { value: "200", suffix: "mil", prefix: "Mais de", desc: "clientes atendidos", icon: Users },
+    { value: "2.000", suffix: "", prefix: "Mais de", desc: "colaboradores e assessores", icon: Briefcase },
+  ];
+
+  const seals = [
+    { icon: BadgeCheck, text: "Conta aberta na XP" },
+    { icon: HeadphonesIcon, text: "Assessoria InvestSmart dedicada" },
+    { icon: MapPin, text: "Presença nacional" },
+    { icon: Shield, text: "Atendimento especializado" },
   ];
 
   return (
-    <section id="sobre" ref={ref} className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background Image - Flamengo Fans */}
-      <div className="absolute inset-0">
-        <img
-          src={flamengoFans}
-          alt="Torcida do Flamengo"
-          className="w-full h-full object-cover opacity-15"
-        />
-        <div className="absolute inset-0 bg-background/95" />
-      </div>
+    <section
+      id="sobre"
+      ref={ref}
+      className="py-24 md:py-32 relative overflow-hidden"
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-card via-background to-card" />
+      <div className="absolute top-1/3 left-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
 
-      {/* Background Decorations */}
-      <motion.div
-        className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-
-
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative">
+        {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <motion.h2
-            className="font-display italic text-4xl md:text-6xl lg:text-7xl text-white font-bold mb-4 drop-shadow-lg"
-            style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            O CAMAROTE
-          </motion.h2>
-          <motion.h2
-            className="font-display italic text-5xl md:text-7xl lg:text-8xl text-primary font-bold drop-shadow-lg"
-            style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            INVESTSMART
-          </motion.h2>
-          <motion.p
-            className="mt-6 text-primary text-2xl font-display tracking-widest"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            TE ESPERA!
-          </motion.p>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-2">
+            Você não está entrando
+          </h2>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+            em qualquer lugar
+          </h2>
+          <p className="font-display text-2xl md:text-3xl text-primary">
+            Está entrando em um dos maiores escritórios da XP no Brasil
+          </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-            whileHover={{ scale: 1.02 }}
-          >
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-transparent rounded-2xl blur-xl"
-              animate={{ opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
-            <img
-              src={camaroteImg}
-              alt="Camarote InvestSmart"
-              className="relative rounded-2xl w-full box-glow"
-            />
-          </motion.div>
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-center mb-12"
+        >
+          <img src={logoInvestsmart} alt="InvestSmart" className="h-16 md:h-20" />
+        </motion.div>
 
-          {/* Features */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="grid sm:grid-cols-2 gap-6"
-          >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/50 transition-colors group cursor-pointer"
+        {/* First Paragraph */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <p className="text-lg md:text-xl text-foreground/90 text-center leading-relaxed">
+            A InvestSmart é um dos maiores escritórios credenciados da XP, com presença em todo o Brasil e milhares de pessoas atendidas diariamente. Aqui, <span className="text-primary font-semibold">escala, estrutura e relacionamento</span> caminham juntos para oferecer segurança, acesso e experiências que poucos conseguem viver.
+          </p>
+        </motion.div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-16">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-card/80 backdrop-blur-sm border border-border/30 rounded-2xl p-6 text-center box-glow"
+            >
+              <stat.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+              <p className="text-xs text-muted-foreground mb-1">{stat.prefix}</p>
+              <motion.p
+                className="font-display text-4xl md:text-5xl text-primary"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 1, delay: 0.6 + index * 0.1 }}
               >
-                <motion.span
-                  className="text-4xl mb-4 block"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                >
-                  {feature.icon}
-                </motion.span>
-                <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+                {stat.value}
+              </motion.p>
+              <p className="text-sm text-foreground font-medium">{stat.suffix}</p>
+              <p className="text-xs text-muted-foreground mt-2">{stat.desc}</p>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Reinforcement Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <p className="text-lg text-foreground/80 text-center leading-relaxed">
+            Essa estrutura permite unir a solidez da XP com uma assessoria próxima, humana e estratégica. <span className="text-primary font-semibold">Abrir sua conta pela InvestSmart</span> é escolher credibilidade, acompanhamento especializado e acesso a experiências exclusivas dentro e fora do mercado financeiro.
+          </p>
+        </motion.div>
+
+        {/* Trust Seals */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+        >
+          {seals.map((seal, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+              className="bg-primary/10 border border-primary/30 rounded-xl p-4 text-center"
+            >
+              <seal.icon className="w-6 h-6 text-primary mx-auto mb-2" />
+              <p className="text-sm text-foreground font-medium">{seal.text}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
