@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { UserPlus, Wallet, Trophy, Gift, CheckCircle, Building } from "lucide-react";
+import maracanaStadium from "@/assets/maracana-stadium.avif";
 
 const HowToParticipate = () => {
   const ref = useRef(null);
@@ -37,10 +38,21 @@ const HowToParticipate = () => {
     <section
       id="como-participar"
       ref={ref}
-      className="py-28 md:py-36 relative overflow-hidden bg-background"
+      className="py-28 md:py-36 relative overflow-hidden"
     >
-      {/* Subtle top border */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+      {/* Background Image with Purple Effect */}
+      <div className="absolute inset-0">
+        <img
+          src={maracanaStadium}
+          alt="Maracanã"
+          className="w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/15 to-background" />
+        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
+      </div>
+      
+      {/* Top border */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-6 relative">
         {/* Section Title */}
@@ -70,12 +82,12 @@ const HowToParticipate = () => {
             >
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[55%] w-[90%] h-px bg-gradient-to-r from-border to-transparent" />
+                <div className="hidden md:block absolute top-12 left-[55%] w-[90%] h-px bg-gradient-to-r from-primary/30 to-transparent" />
               )}
               
-              <div className="bg-card border border-border/40 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/20 transition-colors">
+              <div className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors">
                 {/* Step Icon */}
-                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center">
                   <step.icon className="w-6 h-6 text-primary" />
                 </div>
                 
@@ -100,7 +112,7 @@ const HowToParticipate = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="max-w-2xl mx-auto"
         >
-          <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8">
+          <div className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl p-8">
             <h4 className="text-base font-bold text-foreground text-center mb-6 uppercase tracking-wide">
               Entenda a campanha
             </h4>
@@ -113,7 +125,7 @@ const HowToParticipate = () => {
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <point.icon className="w-4 h-4 text-primary" />
                   </div>
                   <p className="text-foreground/80 text-sm">{point.text}</p>

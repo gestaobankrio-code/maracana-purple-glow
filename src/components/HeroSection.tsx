@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroStadium from "@/assets/hero-stadium.jpg";
+import maracanaStadium from "@/assets/maracana-stadium.avif";
 import { CheckCircle, Ticket, Users, Star } from "lucide-react";
 
 const HeroSection = () => {
@@ -20,11 +20,13 @@ const HeroSection = () => {
         transition={{ duration: 25, ease: "linear" }}
       >
         <img
-          src={heroStadium}
+          src={maracanaStadium}
           alt="Maracanã Stadium"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+        {/* Purple overlay effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-primary/20 to-background" />
+        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
       </motion.div>
 
       {/* Content */}
@@ -85,7 +87,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.7 + index * 0.08 }}
-              className="bg-foreground/5 backdrop-blur-sm border border-foreground/10 rounded-xl p-4"
+              className="bg-background/60 backdrop-blur-md border border-primary/20 rounded-xl p-4"
             >
               <element.icon className="w-5 h-5 text-primary mx-auto mb-2" />
               <p className="text-xs md:text-sm text-foreground/80">{element.text}</p>
@@ -104,7 +106,7 @@ const HeroSection = () => {
             href="#inscricao"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-primary hover:bg-primary/90 px-10 py-4 rounded-xl font-semibold text-base md:text-lg text-primary-foreground transition-all"
+            className="bg-primary hover:bg-primary/90 px-10 py-4 rounded-xl font-semibold text-base md:text-lg text-primary-foreground transition-all shadow-lg shadow-primary/25"
           >
             Quero concorrer aos ingressos
           </motion.a>

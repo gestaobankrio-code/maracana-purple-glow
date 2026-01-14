@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Building2, Users, DollarSign, MapPin, Shield, HeadphonesIcon, BadgeCheck, Briefcase } from "lucide-react";
+import flamengoFans from "@/assets/flamengo-fans.jpg";
 
 // Animated Counter Component
 const AnimatedCounter = ({ 
@@ -14,8 +15,6 @@ const AnimatedCounter = ({
 }) => {
   const [displayValue, setDisplayValue] = useState("0");
   const numericValue = parseFloat(value.replace(/[.,]/g, ''));
-  const hasDecimal = value.includes('.');
-  const formattedSeparator = value.includes('.') ? '.' : ',';
 
   useEffect(() => {
     if (!isInView) return;
@@ -28,15 +27,10 @@ const AnimatedCounter = ({
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / (duration * 1000), 1);
       
-      // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const currentValue = Math.floor(easeOutQuart * numericValue);
       
-      if (hasDecimal) {
-        setDisplayValue(currentValue.toLocaleString('pt-BR'));
-      } else {
-        setDisplayValue(currentValue.toLocaleString('pt-BR'));
-      }
+      setDisplayValue(currentValue.toLocaleString('pt-BR'));
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
@@ -47,7 +41,7 @@ const AnimatedCounter = ({
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, numericValue, duration, value, hasDecimal]);
+  }, [isInView, numericValue, duration, value]);
 
   return <span>{displayValue}</span>;
 };
@@ -76,10 +70,20 @@ const AboutSection = () => {
       ref={ref}
       className="py-28 md:py-36 relative overflow-hidden"
     >
-      {/* Subtle Background */}
-      <div className="absolute inset-0 bg-card/50" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+      {/* Background Image with Purple Effect */}
+      <div className="absolute inset-0">
+        <img
+          src={flamengoFans}
+          alt="Torcida"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/20 to-background" />
+        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
+      </div>
+      
+      {/* Borders */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-6 relative">
         {/* Section Title */}
@@ -117,7 +121,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              className="bg-background border border-border/40 rounded-2xl p-6 md:p-8 text-center hover:border-primary/30 transition-colors"
+              className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-6 md:p-8 text-center hover:border-primary/40 transition-colors"
             >
               <stat.icon className="w-6 h-6 text-primary/60 mx-auto mb-4" />
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">{stat.prefix}</p>
@@ -155,7 +159,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-              className="flex items-center gap-2 bg-primary/5 border border-primary/20 rounded-full px-4 py-2"
+              className="flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-full px-4 py-2"
             >
               <seal.icon className="w-4 h-4 text-primary" />
               <p className="text-sm text-foreground/90">{seal.text}</p>
