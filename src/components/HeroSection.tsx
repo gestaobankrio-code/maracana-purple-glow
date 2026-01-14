@@ -1,8 +1,18 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
 import { CheckCircle, Ticket, Users, Star } from "lucide-react";
 
 const HeroSection = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const supportElements = [
     { icon: Ticket, text: "300 ingressos no total" },
     { icon: Users, text: "150 pares em vários sorteios" },
@@ -11,53 +21,76 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Parallax */}
       <motion.div 
         className="absolute inset-0"
-        initial={{ scale: 1.05 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 25, ease: "linear" }}
+        style={{ y }}
       >
-        <img
+        <motion.img
           src={maracanaStadium}
           alt="Maracanã Stadium"
-          className="w-full h-full object-cover"
+          className="w-full h-[120%] object-cover"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 20, ease: "linear" }}
         />
-        {/* Purple overlay effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-primary/20 to-background" />
-        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
+        {/* Darker overlay for better text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/70 to-background" />
+        <div className="absolute inset-0 bg-primary/5 mix-blend-overlay" />
       </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center pt-24 pb-12">
+      {/* Animated particles */}
+      {[...Array(20)].map((_, i) => (
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          key={i}
+          className="absolute w-1 h-1 bg-primary/60 rounded-full"
+          initial={{
+            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+            y: (typeof window !== 'undefined' ? window.innerHeight : 800) + 50,
+          }}
+          animate={{
+            y: -50,
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: Math.random() * 4 + 4,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+            ease: "linear",
+          }}
+        />
+      ))}
+
+      {/* Content */}
+      <motion.div style={{ opacity }} className="relative z-10 container mx-auto px-6 text-center pt-24 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
           {/* Headline */}
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-2 tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
             className="text-5xl md:text-6xl lg:text-7xl text-primary font-bold mb-6 tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
           >
             seu próximo destino
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-foreground/80 font-medium mb-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
           >
             Camarote exclusivo InvestSmart
           </motion.p>
@@ -65,31 +98,48 @@ const HeroSection = () => {
 
         {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
           className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
-          <span className="text-primary font-semibold">camarote exclusivo</span>.
+          <motion.span 
+            className="text-primary font-semibold"
+            animate={{ opacity: [1, 0.7, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            camarote exclusivo
+          </motion.span>.
         </motion.p>
 
         {/* Support Elements */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto mb-12"
         >
           {supportElements.map((element, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.7 + index * 0.08 }}
-              className="bg-background/60 backdrop-blur-md border border-primary/20 rounded-xl p-4"
+              initial={{ opacity: 0, y: 30, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: 1.2 + index * 0.15,
+                type: "spring",
+                stiffness: 120
+              }}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="bg-background/70 backdrop-blur-md border border-primary/25 rounded-xl p-4 cursor-default"
             >
-              <element.icon className="w-5 h-5 text-primary mx-auto mb-2" />
+              <motion.div
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
+              >
+                <element.icon className="w-5 h-5 text-primary mx-auto mb-2" />
+              </motion.div>
               <p className="text-xs md:text-sm text-foreground/80">{element.text}</p>
             </motion.div>
           ))}
@@ -97,39 +147,54 @@ const HeroSection = () => {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.6, delay: 1.6 }}
           className="flex flex-col items-center gap-3"
         >
           <motion.a
             href="#inscricao"
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px hsl(258 96% 70% / 0.4)" }}
             whileTap={{ scale: 0.98 }}
-            className="bg-primary hover:bg-primary/90 px-10 py-4 rounded-xl font-semibold text-base md:text-lg text-primary-foreground transition-all shadow-lg shadow-primary/25"
+            animate={{ 
+              boxShadow: [
+                "0 10px 30px -10px hsl(258 96% 70% / 0.3)",
+                "0 15px 35px -10px hsl(258 96% 70% / 0.5)",
+                "0 10px 30px -10px hsl(258 96% 70% / 0.3)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="bg-primary hover:bg-primary/90 px-10 py-4 rounded-xl font-semibold text-base md:text-lg text-primary-foreground transition-colors"
           >
             Quero concorrer aos ingressos
           </motion.a>
-          <p className="text-xs text-foreground/50">
+          <motion.p 
+            className="text-xs text-foreground/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8 }}
+          >
             Abertura de conta gratuita na XP via InvestSmart
-          </p>
+          </motion.p>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-5 h-8 border border-foreground/30 rounded-full flex justify-center pt-2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-6 h-10 border-2 border-primary/40 rounded-full flex justify-center pt-2"
         >
           <motion.div
-            className="w-1 h-2 bg-foreground/50 rounded-full"
+            className="w-1.5 h-3 bg-primary/60 rounded-full"
+            animate={{ opacity: [1, 0.3, 1], y: [0, 4, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
           />
         </motion.div>
       </motion.div>
