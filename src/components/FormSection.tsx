@@ -3,8 +3,16 @@ import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import heroStadium from "@/assets/hero-stadium.jpg";
-import { Ticket, Trophy, Sparkles, Clock, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+// Phone mask utility
+const formatPhone = (value: string): string => {
+  const numbers = value.replace(/\D/g, '');
+  if (numbers.length <= 2) return numbers;
+  if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+  if (numbers.length <= 11) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+  return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+};
 
 const FormSection = () => {
   const ref = useRef(null);
@@ -20,7 +28,6 @@ const FormSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     toast({
@@ -33,54 +40,42 @@ const FormSection = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    if (name === 'phone') {
+      setFormData((prev) => ({ ...prev, [name]: formatPhone(value) }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
-
-  const emotionalPoints = [
-    { icon: Sparkles, text: "Cada sorteio é uma nova chance" },
-    { icon: Trophy, text: "Cada jogo é uma experiência diferente" },
-    { icon: Clock, text: "Quanto antes você participa, mais oportunidades acompanha" },
-  ];
 
   return (
     <section
       id="inscricao"
       ref={ref}
-      className="py-24 md:py-32 relative overflow-hidden"
+      className="py-28 md:py-36 relative overflow-hidden bg-background"
     >
-      {/* Stadium Background */}
-      <div className="absolute inset-0">
-        <img
-          src={heroStadium}
-          alt="Stadium Background"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-background/90" />
-      </div>
-      
-      {/* Background Effects */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-card/50 via-background to-background" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
 
       <div className="container mx-auto px-6 relative">
         {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          transition={{ duration: 0.7 }}
+          className="text-center mb-6"
         >
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <Ticket className="w-10 h-10 text-primary" />
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl text-primary">
+          <div className="flex items-baseline justify-center gap-3 mb-4">
+            <span className="text-6xl md:text-7xl lg:text-8xl text-primary font-bold tracking-tight">
               300
-            </h2>
-            <span className="font-display text-3xl md:text-4xl text-foreground">ingressos</span>
+            </span>
+            <span className="text-2xl md:text-3xl text-foreground font-bold">ingressos</span>
           </div>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-2">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl text-foreground font-bold mb-3">
             Vários sorteios
           </h2>
-          <p className="font-display text-xl md:text-2xl text-primary">
+          <p className="text-lg md:text-xl text-foreground/60">
             Uma experiência que poucos vivem
           </p>
         </motion.div>
@@ -90,21 +85,12 @@ const FormSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-2xl mx-auto mb-12"
+          className="max-w-lg mx-auto mb-14"
         >
-          <div className="space-y-3">
-            {emotionalPoints.map((point, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="flex items-center gap-3 justify-center"
-              >
-                <point.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                <p className="text-foreground/90">{point.text}</p>
-              </motion.div>
-            ))}
+          <div className="flex flex-col items-center gap-2 text-center">
+            <p className="text-foreground/70">Cada sorteio é uma nova chance</p>
+            <p className="text-foreground/70">Cada jogo é uma experiência diferente</p>
+            <p className="text-primary font-medium">Quanto antes você participa, mais oportunidades</p>
           </div>
         </motion.div>
 
@@ -112,30 +98,30 @@ const FormSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-xl mx-auto"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="max-w-md mx-auto"
         >
           <form
             onSubmit={handleSubmit}
-            className="bg-card/80 backdrop-blur-lg border border-border/50 rounded-2xl p-8 md:p-10 box-glow"
+            className="bg-card border border-border/50 rounded-2xl p-8 md:p-10"
           >
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-foreground font-medium mb-2">
+                <label className="block text-foreground text-sm font-medium mb-2">
                   Nome completo
                 </label>
                 <Input
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Digite seu nome"
+                  placeholder="Seu nome"
                   required
-                  className="bg-background/50 border-border focus:border-primary h-12"
+                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl"
                 />
               </div>
 
               <div>
-                <label className="block text-foreground font-medium mb-2">
+                <label className="block text-foreground text-sm font-medium mb-2">
                   E-mail
                 </label>
                 <Input
@@ -145,12 +131,12 @@ const FormSection = () => {
                   onChange={handleChange}
                   placeholder="seu@email.com"
                   required
-                  className="bg-background/50 border-border focus:border-primary h-12"
+                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl"
                 />
               </div>
 
               <div>
-                <label className="block text-foreground font-medium mb-2">
+                <label className="block text-foreground text-sm font-medium mb-2">
                   Telefone
                 </label>
                 <Input
@@ -160,17 +146,18 @@ const FormSection = () => {
                   onChange={handleChange}
                   placeholder="(00) 00000-0000"
                   required
-                  className="bg-background/50 border-border focus:border-primary h-12"
+                  maxLength={15}
+                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-14 gradient-purple font-display text-lg tracking-wider text-foreground hover:scale-[1.02] transition-transform box-glow-strong disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base tracking-wide rounded-xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
               >
                 {isSubmitting ? (
-                  <div className="w-6 h-6 border-2 border-foreground border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
                 ) : (
                   <>
                     Participar dos sorteios agora
@@ -179,8 +166,8 @@ const FormSection = () => {
                 )}
               </Button>
 
-              <p className="text-center text-sm text-muted-foreground">
-                Campanha promocional válida enquanto houver ingressos disponíveis
+              <p className="text-center text-xs text-muted-foreground pt-2">
+                Campanha válida enquanto houver ingressos disponíveis
               </p>
             </div>
           </form>
