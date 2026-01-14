@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { ArrowRight } from "lucide-react";
+import camarote from "@/assets/camarote.jpg";
 
 // Phone mask utility
 const formatPhone = (value: string): string => {
@@ -52,11 +53,20 @@ const FormSection = () => {
     <section
       id="inscricao"
       ref={ref}
-      className="py-28 md:py-36 relative overflow-hidden bg-background"
+      className="py-28 md:py-36 relative overflow-hidden"
     >
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-card/50 via-background to-background" />
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+      {/* Background Image with Purple Effect */}
+      <div className="absolute inset-0">
+        <img
+          src={camarote}
+          alt="Camarote"
+          className="w-full h-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/20 to-background" />
+        <div className="absolute inset-0 bg-primary/15 mix-blend-overlay" />
+      </div>
+      
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
       <div className="container mx-auto px-6 relative">
         {/* Headline */}
@@ -103,7 +113,7 @@ const FormSection = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="bg-card border border-border/50 rounded-2xl p-8 md:p-10"
+            className="bg-background/90 backdrop-blur-md border border-primary/20 rounded-2xl p-8 md:p-10 shadow-xl shadow-primary/10"
           >
             <div className="space-y-5">
               <div>
@@ -154,7 +164,7 @@ const FormSection = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base tracking-wide rounded-xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
+                className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base tracking-wide rounded-xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2 mt-2 shadow-lg shadow-primary/25"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />

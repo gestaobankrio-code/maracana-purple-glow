@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import MaracanaSection from "@/components/MaracanaSection";
 import HowToParticipate from "@/components/HowToParticipate";
 import AboutSection from "@/components/AboutSection";
 import FormSection from "@/components/FormSection";
@@ -10,6 +11,7 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <Header />
       <HeroSection />
+      <MaracanaSection />
       <HowToParticipate />
       <AboutSection />
       <FormSection />
