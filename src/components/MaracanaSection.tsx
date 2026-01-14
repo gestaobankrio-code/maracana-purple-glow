@@ -1,8 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
-import fansCelebrating from "@/assets/fans-celebrating.jpg";
-
+import playersCelebrating from "@/assets/players-celebrating.jpg";
 const MaracanaSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -78,7 +77,7 @@ const MaracanaSection = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
               <img
-                src={fansCelebrating}
+                src={playersCelebrating}
                 alt="Torcida no Maracanã"
                 className="w-full h-[400px] md:h-[500px] object-cover"
               />
