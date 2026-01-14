@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { UserPlus, Wallet, Trophy, Gift, CheckCircle, Building } from "lucide-react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
@@ -6,6 +6,13 @@ import maracanaStadium from "@/assets/maracana-stadium.avif";
 const HowToParticipate = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   const steps = [
     {
@@ -40,34 +47,49 @@ const HowToParticipate = () => {
       ref={ref}
       className="py-28 md:py-36 relative overflow-hidden"
     >
-      {/* Background Image with Purple Effect */}
-      <div className="absolute inset-0">
+      {/* Background Image with Parallax and Purple Effect */}
+      <motion.div className="absolute inset-0" style={{ y }}>
         <img
           src={maracanaStadium}
           alt="Maracanã"
-          className="w-full h-full object-cover opacity-15"
+          className="w-full h-[130%] object-cover opacity-15"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/15 to-background" />
         <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
-      </div>
+      </motion.div>
       
-      {/* Top border */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      {/* Animated top border */}
+      <motion.div 
+        className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1.2 }}
+      />
 
       <div className="container mx-auto px-6 relative">
         {/* Section Title */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-2 tracking-tight">
+          <motion.h2 
+            className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-2 tracking-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Como participar
-          </h2>
-          <p className="text-xl md:text-2xl text-primary font-semibold">
+          </motion.h2>
+          <motion.p 
+            className="text-xl md:text-2xl text-primary font-semibold"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             dos sorteios
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Steps */}
@@ -75,64 +97,102 @@ const HowToParticipate = () => {
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+              initial={{ opacity: 0, y: 50, rotateX: 20 }}
+              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ 
+                duration: 0.7, 
+                delay: 0.3 + index * 0.2,
+                type: "spring",
+                stiffness: 100
+              }}
               className="relative"
             >
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[55%] w-[90%] h-px bg-gradient-to-r from-primary/30 to-transparent" />
+                <motion.div 
+                  className="hidden md:block absolute top-12 left-[55%] w-[90%] h-px bg-gradient-to-r from-primary/30 to-transparent"
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
+                />
               )}
               
-              <div className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors">
+              <motion.div 
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors"
+                whileHover={{ 
+                  scale: 1.03, 
+                  y: -8,
+                  boxShadow: "0 20px 40px -15px hsl(258 96% 70% / 0.3)"
+                }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
                 {/* Step Icon */}
-                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center">
+                <motion.div 
+                  className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
                   <step.icon className="w-6 h-6 text-primary" />
-                </div>
+                </motion.div>
                 
-                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                <motion.span 
+                  className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase"
+                  animate={{ opacity: [1, 0.6, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                >
                   Passo {step.number}
-                </span>
+                </motion.span>
                 <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
                   {step.title}
                 </h3>
                 <p className="text-sm text-foreground/60 leading-relaxed">
                   {step.description}
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
 
         {/* Clarity Box */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.9, type: "spring" }}
           className="max-w-2xl mx-auto"
         >
-          <div className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl p-8">
-            <h4 className="text-base font-bold text-foreground text-center mb-6 uppercase tracking-wide">
+          <motion.div 
+            className="bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl p-8"
+            whileHover={{ borderColor: "hsl(258 96% 70% / 0.5)" }}
+          >
+            <motion.h4 
+              className="text-base font-bold text-foreground text-center mb-6 uppercase tracking-wide"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ delay: 1 }}
+            >
               Entenda a campanha
-            </h4>
+            </motion.h4>
             <div className="space-y-4">
               {clarityPoints.map((point, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -15 }}
+                  initial={{ opacity: 0, x: -30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                  transition={{ duration: 0.5, delay: 1.1 + index * 0.15 }}
+                  whileHover={{ x: 5 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <motion.div 
+                    className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0"
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                  >
                     <point.icon className="w-4 h-4 text-primary" />
-                  </div>
+                  </motion.div>
                   <p className="text-foreground/80 text-sm">{point.text}</p>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
