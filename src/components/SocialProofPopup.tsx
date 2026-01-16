@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { CheckCircle2, MapPin, Clock, Sparkles } from "lucide-react";
 
 // Lista de nomes fictícios para simular inscrições
 const mockNames = [
@@ -24,106 +24,228 @@ const mockNames = [
   "Felipe E.",
   "Amanda S.",
   "Thiago R.",
+  "Mariana V.",
+  "Bruno S.",
+  "Carolina A.",
+  "Daniel R.",
+  "Rafaela M.",
 ];
 
 // Lista de cidades
 const cities = [
-  "São Paulo",
-  "Rio de Janeiro",
-  "Belo Horizonte",
-  "Brasília",
-  "Salvador",
-  "Curitiba",
-  "Fortaleza",
-  "Recife",
-  "Porto Alegre",
-  "Campinas",
+  "São Paulo, SP",
+  "Rio de Janeiro, RJ",
+  "Belo Horizonte, MG",
+  "Brasília, DF",
+  "Salvador, BA",
+  "Curitiba, PR",
+  "Fortaleza, CE",
+  "Recife, PE",
+  "Porto Alegre, RS",
+  "Campinas, SP",
+  "Niterói, RJ",
+  "Santos, SP",
+  "Goiânia, GO",
+  "Manaus, AM",
+  "Florianópolis, SC",
 ];
+
+// URL do som de notificação (som de "ding" suave)
+const NOTIFICATION_SOUND_URL = "https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3";
 
 const SocialProofPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentName, setCurrentName] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [timeAgo, setTimeAgo] = useState("");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Inicializa o áudio
+  useEffect(() => {
+    audioRef.current = new Audio(NOTIFICATION_SOUND_URL);
+    audioRef.current.volume = 0.5;
+
+    // Detecta primeira interação do usuário para permitir som
+    const handleInteraction = () => {
+      setHasInteracted(true);
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('scroll', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('scroll', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('scroll', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+    };
+  }, []);
+
+  const playSound = useCallback(() => {
+    if (audioRef.current && hasInteracted) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {
+        // Silently fail if autoplay is blocked
+      });
+    }
+  }, [hasInteracted]);
 
   useEffect(() => {
     const showPopup = () => {
       const randomName = mockNames[Math.floor(Math.random() * mockNames.length)];
       const randomCity = cities[Math.floor(Math.random() * cities.length)];
-      const randomMinutes = Math.floor(Math.random() * 5) + 1;
+      const randomSeconds = Math.floor(Math.random() * 50) + 10;
       
       setCurrentName(randomName);
       setCurrentCity(randomCity);
-      setTimeAgo(`${randomMinutes} min atrás`);
+      setTimeAgo(randomSeconds < 60 ? `${randomSeconds} segundos atrás` : `${Math.floor(randomSeconds / 60)} min atrás`);
       setIsVisible(true);
+      playSound();
 
-      // Esconde após 4 segundos
+      // Esconde após 5 segundos
       setTimeout(() => {
         setIsVisible(false);
-      }, 4000);
+      }, 5000);
     };
 
-    // Mostra o primeiro popup após 5 segundos
-    const initialTimeout = setTimeout(showPopup, 5000);
+    // Mostra o primeiro popup após 4 segundos
+    const initialTimeout = setTimeout(showPopup, 4000);
 
-    // Depois repete a cada 8-15 segundos
+    // Depois repete a cada 10-18 segundos
     const interval = setInterval(() => {
-      const randomDelay = Math.random() * 7000 + 8000; // Entre 8 e 15 segundos
-      setTimeout(showPopup, randomDelay);
-    }, 15000);
+      if (!isVisible) {
+        showPopup();
+      }
+    }, Math.random() * 8000 + 10000);
 
     return () => {
       clearTimeout(initialTimeout);
       clearInterval(interval);
     };
-  }, []);
+  }, [playSound, isVisible]);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ x: -400, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -400, opacity: 0 }}
-          transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed bottom-6 left-6 z-50 max-w-xs"
+          initial={{ x: -500, opacity: 0, scale: 0.8 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          exit={{ x: -500, opacity: 0, scale: 0.8 }}
+          transition={{ type: "spring", damping: 20, stiffness: 150 }}
+          className="fixed bottom-8 left-8 z-50 max-w-sm md:max-w-md"
         >
-          <div className="bg-background/95 backdrop-blur-lg border border-primary/30 rounded-xl p-4 shadow-2xl shadow-primary/20">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: "spring" }}
-                  className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center"
-                >
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                </motion.div>
-              </div>
+          <motion.div 
+            className="bg-background/95 backdrop-blur-xl border-2 border-primary/40 rounded-2xl p-5 md:p-6 shadow-2xl shadow-primary/30 relative overflow-hidden"
+            animate={{ 
+              boxShadow: [
+                "0 25px 50px -12px rgba(147, 51, 234, 0.25)",
+                "0 25px 50px -12px rgba(147, 51, 234, 0.4)",
+                "0 25px 50px -12px rgba(147, 51, 234, 0.25)"
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            {/* Glow effect no topo */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary" />
+            
+            {/* Sparkles animados */}
+            <motion.div
+              className="absolute top-3 right-3"
+              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <Sparkles className="w-5 h-5 text-primary" />
+            </motion.div>
+
+            <div className="flex items-start gap-4">
+              {/* Avatar com ícone */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                className="flex-shrink-0"
+              >
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
+                  <CheckCircle2 className="w-7 h-7 md:w-8 md:h-8 text-primary-foreground" />
+                </div>
+              </motion.div>
+
+              {/* Conteúdo */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-foreground">
+                <motion.p 
+                  className="text-lg md:text-xl font-bold text-foreground"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   {currentName}
-                </p>
-                <p className="text-xs text-foreground/70 mt-0.5">
-                  de {currentCity}
-                </p>
-                <p className="text-xs text-primary font-medium mt-1">
-                  acabou de se inscrever!
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {timeAgo}
-                </p>
+                </motion.p>
+                
+                <motion.div 
+                  className="flex items-center gap-1.5 text-sm md:text-base text-foreground/70 mt-1"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span>{currentCity}</span>
+                </motion.div>
+                
+                <motion.p 
+                  className="text-base md:text-lg text-primary font-semibold mt-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  ✨ Acabou de se inscrever!
+                </motion.p>
+                
+                <motion.div 
+                  className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mt-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <Clock className="w-3 h-3" />
+                  <span>{timeAgo}</span>
+                </motion.div>
               </div>
             </div>
             
             {/* Barra de progresso animada */}
             <motion.div 
-              className="absolute bottom-0 left-0 h-1 bg-primary rounded-b-xl"
+              className="absolute bottom-0 left-0 h-1.5 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-b-2xl"
               initial={{ width: "100%" }}
               animate={{ width: "0%" }}
-              transition={{ duration: 4, ease: "linear" }}
+              transition={{ duration: 5, ease: "linear" }}
             />
-          </div>
+
+            {/* Partículas decorativas */}
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-primary/40 rounded-full"
+                style={{ 
+                  top: `${20 + i * 25}%`,
+                  right: `${10 + i * 5}%`
+                }}
+                animate={{ 
+                  y: [0, -10, 0],
+                  opacity: [0.4, 0.8, 0.4],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  delay: i * 0.3 
+                }}
+              />
+            ))}
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
