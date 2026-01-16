@@ -182,7 +182,7 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
           </div>
           
           {/* Container da barra com espaço extra para o indicador */}
-          <div className="relative py-2">
+          <div className="relative">
             <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50">
               {/* Barra preenchida (ingressos já usados) */}
               <motion.div
@@ -211,10 +211,14 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
               </motion.div>
             </div>
             
-            {/* Indicador pulsante - fora do overflow-hidden */}
+            {/* Indicador pulsante - posicionado verticalmente no centro da barra */}
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
-              style={{ left: `calc(${Math.max(5, Math.min(95, usedPercentage))}% - 20px)` }}
+              className="absolute w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
+              style={{ 
+                left: `calc(${Math.max(5, Math.min(95, usedPercentage))}% - 20px)`,
+                top: '50%',
+                transform: 'translateY(-50%)'
+              }}
               initial={{ scale: 0 }}
               animate={{ 
                 scale: [1, 1.15, 1],

@@ -358,7 +358,7 @@ const FormSection = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-16 md:h-20 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-lg md:text-xl tracking-wide rounded-2xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-primary/30"
+                  className="w-full h-16 md:h-20 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-lg md:text-xl tracking-wide rounded-2xl transition-all hover:scale-[1.02] disabled:opacity-50 shadow-xl shadow-primary/30"
                 >
                   {isSubmitting ? (
                     <motion.div 
@@ -367,16 +367,17 @@ const FormSection = () => {
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     />
                   ) : (
-                    <>
-                      <Gift className="w-6 h-6" />
-                      Participar dos sorteios agora
-                      <motion.div
+                    <span className="flex items-center justify-center gap-3">
+                      <Gift className="w-6 h-6 flex-shrink-0" />
+                      <span>Participar dos sorteios agora</span>
+                      <motion.span
                         animate={{ x: [0, 8, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
+                        className="flex-shrink-0"
                       >
                         <ArrowRight className="w-6 h-6" />
-                      </motion.div>
-                    </>
+                      </motion.span>
+                    </span>
                   )}
                 </Button>
               </motion.div>
