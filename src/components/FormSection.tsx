@@ -1,5 +1,6 @@
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
@@ -26,6 +27,8 @@ const formatPhone = (value: string): string => {
 
 const FormSection = () => {
   const ref = useRef(null);
+  const backGuardArmedRef = useRef(false);
+  const isMobile = useIsMobile();
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
@@ -63,91 +66,78 @@ const FormSection = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Exit intent detection - múltiplos métodos para melhor detecção
+  // Exit intent detection - (funciona melhor no preview/iframe)
   useEffect(() => {
-    // Método 1: Mouse sai pela parte superior da página
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 10 && !exitIntentShown && !showCelebration) {
-        setShowExitIntent(true);
-        setExitIntentShown(true);
-      }
+    const EXIT_COUNTDOWN_SECONDS = 5 * 60;
+
+    const triggerExitIntent = () => {
+      if (exitIntentShown || showCelebration) return;
+      setExitCountdown(EXIT_COUNTDOWN_SECONDS);
+      setShowExitIntent(true);
+      setExitIntentShown(true);
     };
 
-    // Método 2: Mouse se move rapidamente para o topo (intenção de fechar)
-    const handleMouseMove = (e: MouseEvent) => {
-      if (e.clientY <= 50 && e.movementY < -10 && !exitIntentShown && !showCelebration) {
-        setShowExitIntent(true);
-        setExitIntentShown(true);
-      }
+    // Desktop: exit intent clássico
+    const handleMouseOut = (e: MouseEvent) => {
+      const related = e.relatedTarget as Node | null;
+      if (!related && e.clientY <= 0) triggerExitIntent();
     };
 
-    // Método 3: Detecta quando o usuário tenta fechar ou sair da página
+    // Desktop/Preview: aproximação do topo
+    const handleMouseMoveTop = (e: MouseEvent) => {
+      if (e.clientY <= 8) triggerExitIntent();
+    };
+
+    // Mobile: intercepta botão "voltar" (popstate)
+    const handlePopState = () => {
+      if (exitIntentShown || showCelebration) return;
+      triggerExitIntent();
+      // Impede sair imediatamente; a segunda tentativa após fechar seguirá o fluxo normal
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    if (isMobile && !backGuardArmedRef.current) {
+      backGuardArmedRef.current = true;
+      window.history.pushState(null, "", window.location.href);
+      window.addEventListener("popstate", handlePopState);
+    }
+
+    // Proteção nativa (não permite modal custom)
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (!exitIntentShown && !showCelebration) {
         e.preventDefault();
-        e.returnValue = '';
+        e.returnValue = "";
       }
     };
 
-    // Método 4: Detecta blur da janela (quando usuário muda de aba/janela)
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden' && !exitIntentShown && !showCelebration) {
-        // Quando voltar, mostrar o popup
-        const showOnReturn = () => {
-          if (!exitIntentShown && !showCelebration) {
-            setShowExitIntent(true);
-            setExitIntentShown(true);
-          }
-          document.removeEventListener('visibilitychange', showOnReturn);
-        };
-        document.addEventListener('visibilitychange', showOnReturn);
-      }
-    };
-
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    // Verifica se já foi mostrado nesta sessão
-    const wasShown = sessionStorage.getItem('exitIntentShown');
-    if (wasShown) {
-      setExitIntentShown(true);
-    }
-
-    // Método 5: Timer de inatividade (30 segundos sem scroll)
-    let inactivityTimer: NodeJS.Timeout;
+    // Inatividade (45s)
+    let inactivityTimer: ReturnType<typeof setTimeout>;
     const resetInactivityTimer = () => {
       clearTimeout(inactivityTimer);
       inactivityTimer = setTimeout(() => {
-        if (!exitIntentShown && !showCelebration) {
-          setShowExitIntent(true);
-          setExitIntentShown(true);
-        }
-      }, 45000); // 45 segundos de inatividade
+        triggerExitIntent();
+      }, 45000);
     };
 
-    window.addEventListener('scroll', resetInactivityTimer);
-    window.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener("mouseout", handleMouseOut, true);
+    document.addEventListener("mousemove", handleMouseMoveTop, { passive: true });
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    window.addEventListener("scroll", resetInactivityTimer, { passive: true });
+    window.addEventListener("mousemove", resetInactivityTimer, { passive: true });
     resetInactivityTimer();
 
     return () => {
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('scroll', resetInactivityTimer);
-      window.removeEventListener('mousemove', resetInactivityTimer);
+      document.removeEventListener("mouseout", handleMouseOut, true);
+      document.removeEventListener("mousemove", handleMouseMoveTop);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("scroll", resetInactivityTimer);
+      window.removeEventListener("mousemove", resetInactivityTimer);
+      window.removeEventListener("popstate", handlePopState);
       clearTimeout(inactivityTimer);
     };
-  }, [exitIntentShown, showCelebration]);
+  }, [exitIntentShown, showCelebration, isMobile]);
 
-  // Salva no sessionStorage quando o popup é mostrado
-  useEffect(() => {
-    if (exitIntentShown) {
-      sessionStorage.setItem('exitIntentShown', 'true');
-    }
-  }, [exitIntentShown]);
 
   const scrollToForm = () => {
     setShowExitIntent(false);
