@@ -31,6 +31,7 @@ const FormSection = () => {
   const [showCelebration, setShowCelebration] = useState(false);
   const [showExitIntent, setShowExitIntent] = useState(false);
   const [exitIntentShown, setExitIntentShown] = useState(false);
+  const [exitCountdown, setExitCountdown] = useState(300); // 5 minutos em segundos
   const [availableTickets, setAvailableTickets] = useState(300);
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +39,29 @@ const FormSection = () => {
     phone: "",
     investmentAmount: "",
   });
+
+  // Countdown timer para o exit intent popup
+  useEffect(() => {
+    if (showExitIntent && exitCountdown > 0) {
+      const timer = setInterval(() => {
+        setExitCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [showExitIntent, exitCountdown]);
+
+  // Formatar o countdown em MM:SS
+  const formatCountdown = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Exit intent detection
   useEffect(() => {
@@ -794,6 +818,28 @@ const FormSection = () => {
                 Espere! Você está perdendo uma oportunidade única!
               </motion.h3>
 
+              {/* Timer Countdown */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15, type: "spring" }}
+                className="mb-4 relative z-10"
+              >
+                <div className="inline-flex items-center gap-3 bg-destructive/20 border border-destructive/40 rounded-xl px-5 py-3">
+                  <Clock className="w-5 h-5 text-destructive animate-pulse" />
+                  <div className="text-center">
+                    <p className="text-xs text-destructive/80 uppercase tracking-wide font-medium">Oferta expira em</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-destructive font-mono"
+                      animate={{ scale: exitCountdown <= 60 ? [1, 1.05, 1] : 1 }}
+                      transition={{ duration: 0.5, repeat: exitCountdown <= 60 ? Infinity : 0 }}
+                    >
+                      {formatCountdown(exitCountdown)}
+                    </motion.p>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Subtítulo de escassez */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -801,7 +847,7 @@ const FormSection = () => {
                 transition={{ delay: 0.2 }}
                 className="flex items-center justify-center gap-2 mb-4 relative z-10"
               >
-                <Clock className="w-5 h-5 text-primary" />
+                <Gift className="w-5 h-5 text-primary" />
                 <span className="text-primary font-semibold">
                   Restam apenas {availableTickets} ingressos!
                 </span>
