@@ -369,7 +369,7 @@ const FormSection = () => {
                   ) : (
                     <span className="flex items-center justify-center gap-3">
                       <Gift className="w-6 h-6 flex-shrink-0" />
-                      <span>Participar dos sorteios agora</span>
+                      <span>Participar do Sorteio</span>
                       <motion.span
                         animate={{ x: [0, 8, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
