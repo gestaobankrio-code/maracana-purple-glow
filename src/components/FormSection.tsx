@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -29,6 +29,8 @@ const FormSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [showExitIntent, setShowExitIntent] = useState(false);
+  const [exitIntentShown, setExitIntentShown] = useState(false);
   const [availableTickets, setAvailableTickets] = useState(300);
   const [formData, setFormData] = useState({
     name: "",
@@ -37,38 +39,129 @@ const FormSection = () => {
     investmentAmount: "",
   });
 
-  // Função para tocar som de celebração
-  const playCelebrationSound = () => {
+  // Exit intent detection
+  useEffect(() => {
+    const handleMouseLeave = (e: MouseEvent) => {
+      // Detecta quando o mouse sai pela parte superior da página
+      if (e.clientY <= 0 && !exitIntentShown && !showCelebration) {
+        setShowExitIntent(true);
+        setExitIntentShown(true);
+      }
+    };
+
+    // Detecta quando o usuário tenta fechar ou sair da página
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (!exitIntentShown && !showCelebration) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    document.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Verifica se já foi mostrado nesta sessão
+    const wasShown = sessionStorage.getItem('exitIntentShown');
+    if (wasShown) {
+      setExitIntentShown(true);
+    }
+
+    return () => {
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [exitIntentShown, showCelebration]);
+
+  // Salva no sessionStorage quando o popup é mostrado
+  useEffect(() => {
+    if (exitIntentShown) {
+      sessionStorage.setItem('exitIntentShown', 'true');
+    }
+  }, [exitIntentShown]);
+
+  const scrollToForm = () => {
+    setShowExitIntent(false);
+    const formElement = document.getElementById('inscricao');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Função para tocar som de fogos de artifício realista
+  const playFireworkSound = () => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     
-    // Criar sequência de notas musicais para celebração
-    const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50]; // C5, E5, G5, C6, G5, C6
-    const durations = [0.15, 0.15, 0.15, 0.3, 0.15, 0.4];
-    
-    let startTime = audioContext.currentTime;
-    
-    notes.forEach((freq, i) => {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+    const createFireworkBurst = (startTime: number, intensity: number = 1) => {
+      // Som de lançamento (whoosh)
+      const launchOsc = audioContext.createOscillator();
+      const launchGain = audioContext.createGain();
+      launchOsc.connect(launchGain);
+      launchGain.connect(audioContext.destination);
+      launchOsc.type = 'sawtooth';
+      launchOsc.frequency.setValueAtTime(200, startTime);
+      launchOsc.frequency.exponentialRampToValueAtTime(800, startTime + 0.3);
+      launchGain.gain.setValueAtTime(0.1 * intensity, startTime);
+      launchGain.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+      launchOsc.start(startTime);
+      launchOsc.stop(startTime + 0.3);
+
+      // Som de explosão (ruído branco + frequências altas)
+      const bufferSize = audioContext.sampleRate * 0.5;
+      const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+      const noiseData = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        noiseData[i] = Math.random() * 2 - 1;
+      }
       
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
+      const noiseSource = audioContext.createBufferSource();
+      noiseSource.buffer = noiseBuffer;
       
-      oscillator.frequency.value = freq;
-      oscillator.type = 'sine';
+      const noiseGain = audioContext.createGain();
+      const noiseFilter = audioContext.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.value = 2000 + Math.random() * 2000;
+      noiseFilter.Q.value = 0.5;
       
-      gainNode.gain.setValueAtTime(0.3, startTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + durations[i]);
+      noiseSource.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(audioContext.destination);
       
-      oscillator.start(startTime);
-      oscillator.stop(startTime + durations[i]);
-      
-      startTime += durations[i] * 0.8;
-    });
-    
-    // Adicionar um "fanfare" extra
+      const explosionTime = startTime + 0.4;
+      noiseGain.gain.setValueAtTime(0.3 * intensity, explosionTime);
+      noiseGain.gain.exponentialRampToValueAtTime(0.01, explosionTime + 0.4);
+      noiseSource.start(explosionTime);
+      noiseSource.stop(explosionTime + 0.5);
+
+      // Estouros múltiplos (crackling)
+      for (let j = 0; j < 5; j++) {
+        const crackOsc = audioContext.createOscillator();
+        const crackGain = audioContext.createGain();
+        crackOsc.connect(crackGain);
+        crackGain.connect(audioContext.destination);
+        crackOsc.type = 'square';
+        crackOsc.frequency.value = 1000 + Math.random() * 3000;
+        
+        const crackTime = explosionTime + Math.random() * 0.3;
+        crackGain.gain.setValueAtTime(0.08 * intensity, crackTime);
+        crackGain.gain.exponentialRampToValueAtTime(0.001, crackTime + 0.05);
+        crackOsc.start(crackTime);
+        crackOsc.stop(crackTime + 0.05);
+      }
+    };
+
+    // Sequência de fogos de artifício
+    const currentTime = audioContext.currentTime;
+    createFireworkBurst(currentTime, 1);
+    createFireworkBurst(currentTime + 0.6, 0.8);
+    createFireworkBurst(currentTime + 1.1, 1.2);
+    createFireworkBurst(currentTime + 1.5, 0.9);
+    createFireworkBurst(currentTime + 1.9, 1.1);
+    createFireworkBurst(currentTime + 2.3, 0.7);
+    createFireworkBurst(currentTime + 2.6, 1);
+
+    // Fanfarre celebratória no final
     setTimeout(() => {
-      const fanfareNotes = [783.99, 987.77, 1174.66, 1318.51]; // G5, B5, D6, E6
+      const fanfareNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
       let fanfareTime = audioContext.currentTime;
       
       fanfareNotes.forEach((freq, i) => {
@@ -81,15 +174,15 @@ const FormSection = () => {
         osc.frequency.value = freq;
         osc.type = 'triangle';
         
-        gain.gain.setValueAtTime(0.2, fanfareTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, fanfareTime + 0.25);
+        gain.gain.setValueAtTime(0.15, fanfareTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, fanfareTime + 0.3);
         
         osc.start(fanfareTime);
-        osc.stop(fanfareTime + 0.25);
+        osc.stop(fanfareTime + 0.3);
         
-        fanfareTime += 0.1;
+        fanfareTime += 0.12;
       });
-    }, 500);
+    }, 3000);
   };
 
   // Função para disparar fogos de artifício
@@ -100,8 +193,8 @@ const FormSection = () => {
 
     const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
 
-    // Tocar som de celebração
-    playCelebrationSound();
+    // Tocar som de fogos de artifício
+    playFireworkSound();
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now();
@@ -638,6 +731,149 @@ const FormSection = () => {
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
               >
                 <Sparkles className="w-6 h-6 text-primary/50" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal Exit Intent - Popup de saída */}
+      <AnimatePresence>
+        {showExitIntent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-background/90 backdrop-blur-lg"
+            onClick={() => setShowExitIntent(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.3, opacity: 0, y: -100 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.3, opacity: 0, y: -100 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              className="relative bg-gradient-to-b from-background to-background/95 border-2 border-primary rounded-3xl p-8 md:p-12 max-w-lg mx-4 shadow-2xl shadow-primary/40 text-center overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Efeito de brilho animado */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+                animate={{ x: ['-200%', '200%'] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+              />
+
+              {/* Botão fechar */}
+              <button
+                onClick={() => setShowExitIntent(false)}
+                className="absolute top-4 right-4 text-foreground/60 hover:text-foreground transition-colors z-10"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Ícone de alerta animado */}
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  rotate: [0, -5, 5, 0]
+                }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="mb-6 relative z-10"
+              >
+                <div className="w-20 h-20 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
+                  <AlertTriangle className="w-10 h-10 text-primary" />
+                </div>
+              </motion.div>
+
+              {/* Título impactante */}
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-2xl md:text-3xl font-bold text-foreground mb-3 relative z-10"
+              >
+                Espere! Você está perdendo uma oportunidade única!
+              </motion.h3>
+
+              {/* Subtítulo de escassez */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex items-center justify-center gap-2 mb-4 relative z-10"
+              >
+                <Clock className="w-5 h-5 text-primary" />
+                <span className="text-primary font-semibold">
+                  Restam apenas {availableTickets} ingressos!
+                </span>
+              </motion.div>
+
+              {/* Mensagem persuasiva */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-foreground/80 mb-6 relative z-10"
+              >
+                Não deixe essa chance escapar! Inscreva-se agora <strong className="text-foreground">gratuitamente</strong> e concorra a ingressos exclusivos para o <strong className="text-primary">Camarote no Maracanã</strong>.
+              </motion.p>
+
+              {/* Benefícios rápidos */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex flex-col gap-2 mb-8 text-sm text-foreground/70 relative z-10"
+              >
+                <div className="flex items-center gap-2 justify-center">
+                  <Gift className="w-4 h-4 text-primary" />
+                  <span>Inscrição 100% gratuita</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center">
+                  <Trophy className="w-4 h-4 text-primary" />
+                  <span>Vários sorteios durante a temporada</span>
+                </div>
+                <div className="flex items-center gap-2 justify-center">
+                  <Star className="w-4 h-4 text-primary" />
+                  <span>Experiência VIP exclusiva</span>
+                </div>
+              </motion.div>
+
+              {/* Botões de ação */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="space-y-3 relative z-10"
+              >
+                <Button
+                  onClick={scrollToForm}
+                  className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-lg py-6 rounded-xl shadow-lg shadow-primary/30 transition-all hover:scale-[1.02]"
+                >
+                  <Gift className="w-5 h-5 mr-2" />
+                  Quero Participar Agora!
+                </Button>
+                <button
+                  onClick={() => setShowExitIntent(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Não, prefiro perder essa oportunidade
+                </button>
+              </motion.div>
+
+              {/* Decorações */}
+              <motion.div
+                className="absolute top-6 left-6 opacity-50"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-6 h-6 text-primary" />
+              </motion.div>
+              <motion.div
+                className="absolute bottom-6 left-6 opacity-50"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Star className="w-5 h-5 text-primary" />
               </motion.div>
             </motion.div>
           </motion.div>
