@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import maracanaStadium from "@/assets/maracana-stadium.avif";
+import torcidaInvestsmart from "@/assets/torcida-investsmart.png";
 import playersCelebrating from "@/assets/players-celebrating.jpg";
 
 const MaracanaSection = () => {
@@ -19,15 +19,14 @@ const MaracanaSection = () => {
       ref={ref}
       className="py-24 md:py-32 relative overflow-hidden"
     >
-      {/* Background Image with Parallax and Purple Effect */}
+      {/* Background Image with Parallax */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <img
-          src={maracanaStadium}
-          alt="Maracanã"
-          className="w-full h-[130%] object-cover opacity-30"
+          src={torcidaInvestsmart}
+          alt="Torcida InvestSmart"
+          className="w-full h-[130%] object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/30 to-background" />
-        <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/80" />
       </motion.div>
 
       <div className="container mx-auto px-6 relative">
