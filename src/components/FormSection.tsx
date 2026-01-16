@@ -37,6 +37,61 @@ const FormSection = () => {
     investmentAmount: "",
   });
 
+  // Função para tocar som de celebração
+  const playCelebrationSound = () => {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    
+    // Criar sequência de notas musicais para celebração
+    const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50]; // C5, E5, G5, C6, G5, C6
+    const durations = [0.15, 0.15, 0.15, 0.3, 0.15, 0.4];
+    
+    let startTime = audioContext.currentTime;
+    
+    notes.forEach((freq, i) => {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = freq;
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(0.3, startTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + durations[i]);
+      
+      oscillator.start(startTime);
+      oscillator.stop(startTime + durations[i]);
+      
+      startTime += durations[i] * 0.8;
+    });
+    
+    // Adicionar um "fanfare" extra
+    setTimeout(() => {
+      const fanfareNotes = [783.99, 987.77, 1174.66, 1318.51]; // G5, B5, D6, E6
+      let fanfareTime = audioContext.currentTime;
+      
+      fanfareNotes.forEach((freq, i) => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        
+        osc.frequency.value = freq;
+        osc.type = 'triangle';
+        
+        gain.gain.setValueAtTime(0.2, fanfareTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, fanfareTime + 0.25);
+        
+        osc.start(fanfareTime);
+        osc.stop(fanfareTime + 0.25);
+        
+        fanfareTime += 0.1;
+      });
+    }, 500);
+  };
+
   // Função para disparar fogos de artifício
   const fireConfetti = () => {
     const duration = 4000;
@@ -44,6 +99,9 @@ const FormSection = () => {
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
     const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+    // Tocar som de celebração
+    playCelebrationSound();
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now();
