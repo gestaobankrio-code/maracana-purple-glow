@@ -72,7 +72,7 @@ const HeroSection = () => {
           {/* Headline */}
           <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight drop-shadow-lg font-normal uppercase text-center"
-            style={{ fontFamily: "'Roundkey', sans-serif" }}
+            style={{ fontFamily: "Arial, sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -82,7 +82,7 @@ const HeroSection = () => {
           <motion.p
             className="text-2xl md:text-3xl lg:text-4xl text-[#EBFF70] font-bold mb-10 tracking-wide"
             style={{ 
-              fontFamily: "'Roundkey', sans-serif",
+              fontFamily: "Arial, sans-serif",
               textShadow: "0 0 20px rgba(235, 255, 112, 0.5), 0 4px 15px rgba(0, 0, 0, 0.4)"
             }}
             initial={{ opacity: 0, y: 20 }}
@@ -99,7 +99,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
           className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-normal"
-          style={{ fontFamily: "'Roundkey', sans-serif" }}
+          style={{ fontFamily: "Arial, sans-serif" }}
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã!
         </motion.p>
