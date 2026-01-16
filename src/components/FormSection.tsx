@@ -312,7 +312,7 @@ const FormSection = () => {
               >
                 <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
                   <User className="w-4 h-4 text-primary" />
-                  Nome completo
+                  Nome completo <span className="text-primary">*</span>
                 </label>
                 <Input
                   name="name"
@@ -332,7 +332,7 @@ const FormSection = () => {
               >
                 <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
                   <Mail className="w-4 h-4 text-primary" />
-                  E-mail
+                  E-mail <span className="text-primary">*</span>
                 </label>
                 <Input
                   name="email"
@@ -353,7 +353,7 @@ const FormSection = () => {
               >
                 <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
                   <Phone className="w-4 h-4 text-primary" />
-                  Telefone / WhatsApp
+                  Telefone / WhatsApp <span className="text-primary">*</span>
                 </label>
                 <Input
                   name="phone"
@@ -375,7 +375,7 @@ const FormSection = () => {
               >
                 <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
                   <Wallet className="w-4 h-4 text-primary" />
-                  Qual o valor aproximado você tem disponível para investir atualmente?
+                  Qual o valor aproximado você tem disponível para investir atualmente? <span className="text-primary">*</span>
                 </label>
                 <Select
                   value={formData.investmentAmount}
