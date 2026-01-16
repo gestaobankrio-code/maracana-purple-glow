@@ -118,8 +118,9 @@ const HowToParticipate = () => {
                 />
               )}
               
-              <motion.div 
-                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors"
+              <motion.a 
+                href="#inscricao"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors block cursor-pointer"
                 whileHover={{ 
                   scale: 1.03, 
                   y: -8,
@@ -149,7 +150,7 @@ const HowToParticipate = () => {
                 <p className="text-sm text-foreground/60 leading-relaxed">
                   {step.description}
                 </p>
-              </motion.div>
+              </motion.a>
             </motion.div>
           ))}
         </div>

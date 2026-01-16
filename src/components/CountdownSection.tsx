@@ -113,16 +113,18 @@ const CountdownSection = () => {
                 }}
                 className="relative"
               >
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] group hover:scale-105 transition-transform hover:bg-white/20">
-                  <motion.span
-                    key={unit.value}
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    className="block text-4xl md:text-6xl font-display text-white text-center"
-                  >
-                    {String(unit.value).padStart(2, "0")}
-                  </motion.span>
-                  <span className="block text-xs md:text-sm text-white/80 font-medium text-center mt-2 tracking-widest">
+                <div className="bg-black/40 backdrop-blur-md border-2 border-white/40 rounded-2xl p-4 md:p-6 min-w-[80px] md:min-w-[120px] group hover:scale-105 transition-transform hover:bg-black/50 shadow-lg shadow-black/30">
+                  <div className="bg-white/15 rounded-xl p-3 md:p-4 mb-2">
+                    <motion.span
+                      key={unit.value}
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      className="block text-4xl md:text-6xl font-display text-white text-center font-bold"
+                    >
+                      {String(unit.value).padStart(2, "0")}
+                    </motion.span>
+                  </div>
+                  <span className="block text-xs md:text-sm text-white font-semibold text-center tracking-widest">
                     {unit.label}
                   </span>
                 </div>
