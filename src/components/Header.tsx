@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import logoInvestsmart from "@/assets/logo-investsmart.png";
+import logoInvestsmart from "@/assets/logo-investsmart-new.png";
 
 const Header = () => {
   return (

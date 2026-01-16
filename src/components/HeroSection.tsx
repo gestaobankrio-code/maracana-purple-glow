@@ -35,8 +35,8 @@ const HeroSection = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 20, ease: "linear" }}
         />
-        {/* Subtle overlay for text visibility while keeping image vibrant */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background" />
+        {/* Subtle overlay for text visibility with 50% transparency */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/50 to-background" />
         <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
       </motion.div>
 
