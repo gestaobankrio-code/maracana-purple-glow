@@ -71,46 +71,20 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl mb-2 tracking-tight bg-gradient-to-r from-white via-[#EBFF70] to-white bg-clip-text text-transparent"
-            style={{ 
-              fontFamily: "'Roundkey', sans-serif", 
-              fontStyle: "italic",
-              backgroundSize: "200% 100%"
-            }}
+            className="text-6xl md:text-7xl lg:text-8xl text-white mb-2 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ 
-              opacity: 1, 
-              y: 0,
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-            }}
-            transition={{ 
-              opacity: { duration: 0.8, delay: 0.3 },
-              y: { duration: 0.8, delay: 0.3 },
-              backgroundPosition: { duration: 5, repeat: Infinity, ease: "linear" }
-            }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl mb-8 tracking-tight bg-gradient-to-r from-[#EBFF70] via-white to-[#EBFF70] bg-clip-text text-transparent"
-            style={{ 
-              fontFamily: "'Roundkey', sans-serif", 
-              fontStyle: "italic",
-              backgroundSize: "200% 100%"
-            }}
+            className="text-6xl md:text-7xl lg:text-8xl text-white mb-8 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ 
-              opacity: 1, 
-              y: 0, 
-              scale: 1,
-              backgroundPosition: ["100% 50%", "0% 50%", "100% 50%"]
-            }}
-            transition={{ 
-              opacity: { duration: 0.8, delay: 0.5 },
-              y: { duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 },
-              scale: { duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 },
-              backgroundPosition: { duration: 5, repeat: Infinity, ease: "linear" }
-            }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
           >
             seu próximo destino
           </motion.h1>
@@ -133,8 +107,8 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-base md:text-lg text-white max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
-          style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
+          className="text-lg md:text-xl lg:text-2xl text-white max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
+          style={{ fontFamily: "'Roundkey', sans-serif" }}
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
           <motion.span 
