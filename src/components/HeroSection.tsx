@@ -71,12 +71,8 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-2 tracking-tight"
-            style={{ 
-              fontFamily: "'Roundkey', sans-serif", 
-              fontStyle: "italic",
-              textShadow: "0 0 20px #EBFF70, 0 0 40px #EBFF70, 2px 2px 0 #EBFF70, -2px -2px 0 #EBFF70, 2px -2px 0 #EBFF70, -2px 2px 0 #EBFF70"
-            }}
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -84,12 +80,8 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl text-white font-bold mb-6 tracking-tight"
-            style={{ 
-              fontFamily: "'Roundkey', sans-serif", 
-              fontStyle: "italic",
-              textShadow: "0 0 20px #EBFF70, 0 0 40px #EBFF70, 2px 2px 0 #EBFF70, -2px -2px 0 #EBFF70, 2px -2px 0 #EBFF70, -2px 2px 0 #EBFF70"
-            }}
+            className="text-6xl md:text-7xl lg:text-8xl text-white mb-6 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
