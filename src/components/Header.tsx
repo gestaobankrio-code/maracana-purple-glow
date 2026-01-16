@@ -19,7 +19,7 @@ const Header = () => {
             <img
               src={logoInvestsmart}
               alt="InvestSmart XP"
-              className="h-8 md:h-10 w-auto"
+              className="h-12 md:h-[60px] w-auto"
             />
           </a>
         </motion.div>
