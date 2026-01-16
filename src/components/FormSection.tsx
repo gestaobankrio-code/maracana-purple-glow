@@ -1,10 +1,11 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { ArrowRight, Sparkles } from "lucide-react";
 import camarote from "@/assets/camarote.jpg";
+import ScarcityBar from "./ScarcityBar";
 
 // Phone mask utility
 const formatPhone = (value: string): string => {
@@ -19,11 +20,38 @@ const FormSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [availableTickets, setAvailableTickets] = useState(300);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
+
+  // Simula diminuição automática de ingressos para criar urgência
+  useEffect(() => {
+    // Começa com 300 e diminui gradualmente
+    const savedTickets = localStorage.getItem('availableTickets');
+    if (savedTickets) {
+      setAvailableTickets(parseInt(savedTickets));
+    } else {
+      // Simula que já venderam alguns ingressos
+      const initialTickets = Math.floor(Math.random() * 50) + 180; // Entre 180 e 230
+      setAvailableTickets(initialTickets);
+      localStorage.setItem('availableTickets', initialTickets.toString());
+    }
+
+    // A cada 30-60 segundos, diminui 1-3 ingressos para simular vendas
+    const interval = setInterval(() => {
+      setAvailableTickets(prev => {
+        const decrease = Math.floor(Math.random() * 3) + 1;
+        const newValue = Math.max(10, prev - decrease); // Nunca vai abaixo de 10
+        localStorage.setItem('availableTickets', newValue.toString());
+        return newValue;
+      });
+    }, Math.random() * 30000 + 30000); // Entre 30 e 60 segundos
+
+    return () => clearInterval(interval);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -41,6 +69,13 @@ const FormSection = () => {
     toast({
       title: "Inscrição realizada! 🎉",
       description: "Boa sorte no sorteio! Entraremos em contato em breve.",
+    });
+
+    // Diminui os ingressos disponíveis quando alguém se inscreve
+    setAvailableTickets(prev => {
+      const newValue = Math.max(10, prev - 1);
+      localStorage.setItem('availableTickets', newValue.toString());
+      return newValue;
     });
 
     setFormData({ name: "", email: "", phone: "" });
@@ -195,6 +230,9 @@ const FormSection = () => {
           transition={{ duration: 0.8, delay: 1, type: "spring" }}
           className="max-w-md mx-auto"
         >
+          {/* Barra de Escassez */}
+          <ScarcityBar availableTickets={availableTickets} totalTickets={300} />
+
           <motion.form
             onSubmit={handleSubmit}
             className="bg-background/90 backdrop-blur-md border border-primary/20 rounded-2xl p-8 md:p-10 shadow-xl shadow-primary/10"
