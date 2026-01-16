@@ -96,8 +96,8 @@ const MaracanaSection = () => {
               ].map((stat, index) => (
                 <motion.div 
                   key={index}
-                  className="text-center"
-                  whileHover={{ scale: 1.1 }}
+                  className="text-center bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-2xl p-4 md:p-6"
+                  whileHover={{ scale: 1.05, borderColor: "hsl(258 96% 70% / 0.5)" }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <motion.p 
@@ -108,7 +108,7 @@ const MaracanaSection = () => {
                   >
                     {stat.value}
                   </motion.p>
-                  <p className="text-xs text-foreground/60 mt-1">{stat.label}</p>
+                  <p className="text-xs text-foreground/70 mt-2 font-medium uppercase tracking-wide">{stat.label}</p>
                 </motion.div>
               ))}
             </motion.div>
