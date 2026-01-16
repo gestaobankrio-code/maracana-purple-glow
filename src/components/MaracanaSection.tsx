@@ -24,7 +24,7 @@ const MaracanaSection = () => {
         <img
           src={darkPatternBg}
           alt="Background"
-          className="w-full h-[130%] object-cover"
+          className="w-full h-[130%] object-cover opacity-20"
         />
       </motion.div>
 
