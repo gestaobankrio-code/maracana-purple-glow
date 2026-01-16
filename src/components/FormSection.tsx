@@ -1,9 +1,9 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import camarote from "@/assets/camarote.jpg";
 import ScarcityBar from "./ScarcityBar";
+import confetti from "canvas-confetti";
 
 // Phone mask utility
 const formatPhone = (value: string): string => {
@@ -27,6 +28,7 @@ const FormSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
   const [availableTickets, setAvailableTickets] = useState(300);
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +36,40 @@ const FormSection = () => {
     phone: "",
     investmentAmount: "",
   });
+
+  // Função para disparar fogos de artifício
+  const fireConfetti = () => {
+    const duration = 4000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+    const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+
+      // Fogos da esquerda
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        colors: ['#9333ea', '#a855f7', '#c084fc', '#FFD700', '#FF6B6B', '#4ECDC4'],
+      });
+      // Fogos da direita
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        colors: ['#9333ea', '#a855f7', '#c084fc', '#FFD700', '#FF6B6B', '#4ECDC4'],
+      });
+    }, 250);
+  };
 
   // Simula diminuição automática de ingressos para criar urgência
   useEffect(() => {
@@ -85,10 +121,11 @@ const FormSection = () => {
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    toast({
-      title: "Inscrição realizada! 🎉",
-      description: "Boa sorte no sorteio! Entraremos em contato em breve.",
-    });
+    // Dispara fogos de artifício
+    fireConfetti();
+    
+    // Mostra modal de celebração
+    setShowCelebration(true);
 
     // Diminui os ingressos disponíveis quando alguém se inscreve
     setAvailableTickets(prev => {
@@ -447,6 +484,107 @@ const FormSection = () => {
           </motion.form>
         </motion.div>
       </div>
+
+      {/* Modal de Celebração */}
+      <AnimatePresence>
+        {showCelebration && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9998] flex items-center justify-center bg-background/80 backdrop-blur-md"
+            onClick={() => setShowCelebration(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.5, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 15 }}
+              className="relative bg-gradient-to-b from-background to-background/95 border-2 border-primary/50 rounded-3xl p-8 md:p-12 max-w-md mx-4 shadow-2xl shadow-primary/30 text-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Botão fechar */}
+              <button
+                onClick={() => setShowCelebration(false)}
+                className="absolute top-4 right-4 text-foreground/60 hover:text-foreground transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Ícone animado */}
+              <motion.div
+                animate={{ 
+                  rotate: [0, -10, 10, -10, 10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
+                className="mb-6"
+              >
+                <PartyPopper className="w-20 h-20 mx-auto text-primary" />
+              </motion.div>
+
+              {/* Título */}
+              <motion.h3
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+              >
+                Parabéns! 🎉
+              </motion.h3>
+
+              {/* Mensagem */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-lg text-foreground/80 mb-6"
+              >
+                Sua inscrição foi realizada com sucesso!
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="text-xl font-semibold text-primary mb-8"
+              >
+                🍀 Boa sorte no sorteio!
+              </motion.p>
+
+              {/* Botão fechar */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Button
+                  onClick={() => setShowCelebration(false)}
+                  className="bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-lg px-8 py-6 rounded-xl"
+                >
+                  Fechar
+                </Button>
+              </motion.div>
+
+              {/* Estrelas decorativas */}
+              <motion.div
+                className="absolute top-6 left-6"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <Star className="w-6 h-6 text-primary/50" />
+              </motion.div>
+              <motion.div
+                className="absolute bottom-6 right-6"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-6 h-6 text-primary/50" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
