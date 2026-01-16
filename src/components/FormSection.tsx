@@ -63,17 +63,25 @@ const FormSection = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Exit intent detection
+  // Exit intent detection - múltiplos métodos para melhor detecção
   useEffect(() => {
+    // Método 1: Mouse sai pela parte superior da página
     const handleMouseLeave = (e: MouseEvent) => {
-      // Detecta quando o mouse sai pela parte superior da página
-      if (e.clientY <= 0 && !exitIntentShown && !showCelebration) {
+      if (e.clientY <= 10 && !exitIntentShown && !showCelebration) {
         setShowExitIntent(true);
         setExitIntentShown(true);
       }
     };
 
-    // Detecta quando o usuário tenta fechar ou sair da página
+    // Método 2: Mouse se move rapidamente para o topo (intenção de fechar)
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY <= 50 && e.movementY < -10 && !exitIntentShown && !showCelebration) {
+        setShowExitIntent(true);
+        setExitIntentShown(true);
+      }
+    };
+
+    // Método 3: Detecta quando o usuário tenta fechar ou sair da página
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (!exitIntentShown && !showCelebration) {
         e.preventDefault();
@@ -81,8 +89,25 @@ const FormSection = () => {
       }
     };
 
+    // Método 4: Detecta blur da janela (quando usuário muda de aba/janela)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && !exitIntentShown && !showCelebration) {
+        // Quando voltar, mostrar o popup
+        const showOnReturn = () => {
+          if (!exitIntentShown && !showCelebration) {
+            setShowExitIntent(true);
+            setExitIntentShown(true);
+          }
+          document.removeEventListener('visibilitychange', showOnReturn);
+        };
+        document.addEventListener('visibilitychange', showOnReturn);
+      }
+    };
+
     document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Verifica se já foi mostrado nesta sessão
     const wasShown = sessionStorage.getItem('exitIntentShown');
@@ -90,9 +115,30 @@ const FormSection = () => {
       setExitIntentShown(true);
     }
 
+    // Método 5: Timer de inatividade (30 segundos sem scroll)
+    let inactivityTimer: NodeJS.Timeout;
+    const resetInactivityTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (!exitIntentShown && !showCelebration) {
+          setShowExitIntent(true);
+          setExitIntentShown(true);
+        }
+      }, 45000); // 45 segundos de inatividade
+    };
+
+    window.addEventListener('scroll', resetInactivityTimer);
+    window.addEventListener('mousemove', resetInactivityTimer);
+    resetInactivityTimer();
+
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('scroll', resetInactivityTimer);
+      window.removeEventListener('mousemove', resetInactivityTimer);
+      clearTimeout(inactivityTimer);
     };
   }, [exitIntentShown, showCelebration]);
 
