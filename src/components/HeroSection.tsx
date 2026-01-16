@@ -107,17 +107,24 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-lg md:text-xl lg:text-2xl text-white max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
+          className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-normal"
           style={{ fontFamily: "'Roundkey', sans-serif" }}
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
           <motion.span 
-            className="text-white font-semibold"
-            animate={{ opacity: [1, 0.7, 1] }}
+            className="text-primary font-bold text-xl md:text-2xl lg:text-3xl"
+            animate={{ 
+              textShadow: [
+                "0 0 10px hsl(258 96% 70% / 0.5)",
+                "0 0 25px hsl(258 96% 70% / 0.8)",
+                "0 0 10px hsl(258 96% 70% / 0.5)"
+              ]
+            }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            camarote exclusivo
-          </motion.span>.
+            CAMAROTE EXCLUSIVO
+          </motion.span>
+          !
         </motion.p>
         {/* Support Elements - Eye-catching animated cards */}
         <motion.div
