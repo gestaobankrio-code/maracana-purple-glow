@@ -71,7 +71,7 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl text-white mb-8 tracking-tight drop-shadow-lg font-normal uppercase text-center"
+            className="text-4xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight drop-shadow-lg font-normal uppercase text-center"
             style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
