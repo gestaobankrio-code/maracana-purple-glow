@@ -71,22 +71,13 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight drop-shadow-lg font-light"
+            className="text-6xl md:text-7xl lg:text-8xl text-white mb-8 tracking-tight drop-shadow-lg font-bold text-center"
             style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            O Maracanã pode ser
-          </motion.h1>
-          <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight drop-shadow-lg font-light"
-            style={{ fontFamily: "'Roundkey', sans-serif" }}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
-          >
-            seu próximo destino
+            O Maracanã pode ser seu próximo destino
           </motion.h1>
           <motion.p
             className="text-2xl md:text-3xl lg:text-4xl text-[#EBFF70] font-bold mb-10 tracking-wide"
