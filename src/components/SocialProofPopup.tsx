@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle2, MapPin, Clock, Sparkles } from "lucide-react";
 
 // Lista de nomes fictícios para simular inscrições
@@ -50,49 +50,12 @@ const cities = [
   "Florianópolis, SC",
 ];
 
-// URL do som de notificação (som de "ding" suave)
-const NOTIFICATION_SOUND_URL = "https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3";
-
 const SocialProofPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentName, setCurrentName] = useState("");
   const [currentCity, setCurrentCity] = useState("");
   const [timeAgo, setTimeAgo] = useState("");
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [hasInteracted, setHasInteracted] = useState(false);
 
-  // Inicializa o áudio
-  useEffect(() => {
-    audioRef.current = new Audio(NOTIFICATION_SOUND_URL);
-    audioRef.current.volume = 0.5;
-
-    // Detecta primeira interação do usuário para permitir som
-    const handleInteraction = () => {
-      setHasInteracted(true);
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-
-    document.addEventListener('click', handleInteraction);
-    document.addEventListener('scroll', handleInteraction);
-    document.addEventListener('touchstart', handleInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-    };
-  }, []);
-
-  const playSound = useCallback(() => {
-    if (audioRef.current && hasInteracted) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {
-        // Silently fail if autoplay is blocked
-      });
-    }
-  }, [hasInteracted]);
 
   useEffect(() => {
     const showPopup = () => {
@@ -104,29 +67,28 @@ const SocialProofPopup = () => {
       setCurrentCity(randomCity);
       setTimeAgo(randomSeconds < 60 ? `${randomSeconds} segundos atrás` : `${Math.floor(randomSeconds / 60)} min atrás`);
       setIsVisible(true);
-      playSound();
 
-      // Esconde após 5 segundos
+      // Esconde após 8 segundos (aumentado)
       setTimeout(() => {
         setIsVisible(false);
-      }, 5000);
+      }, 8000);
     };
 
     // Mostra o primeiro popup após 4 segundos
     const initialTimeout = setTimeout(showPopup, 4000);
 
-    // Depois repete a cada 10-18 segundos
+    // Depois repete a cada 12-22 segundos
     const interval = setInterval(() => {
       if (!isVisible) {
         showPopup();
       }
-    }, Math.random() * 8000 + 10000);
+    }, Math.random() * 10000 + 12000);
 
     return () => {
       clearTimeout(initialTimeout);
       clearInterval(interval);
     };
-  }, [playSound, isVisible]);
+  }, [isVisible]);
 
   return (
     <AnimatePresence>
@@ -221,7 +183,7 @@ const SocialProofPopup = () => {
               className="absolute bottom-0 left-0 h-1.5 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-b-2xl"
               initial={{ width: "100%" }}
               animate={{ width: "0%" }}
-              transition={{ duration: 5, ease: "linear" }}
+              transition={{ duration: 8, ease: "linear" }}
             />
 
             {/* Partículas decorativas */}
