@@ -7,9 +7,21 @@ const FloatingTicketButton = () => {
       href="#inscricao"
       className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-full shadow-lg shadow-primary/30 cursor-pointer"
       initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 1, type: "spring", stiffness: 200 }}
-      whileHover={{ scale: 1.05, boxShadow: "0 10px 30px -5px hsl(258 96% 70% / 0.5)" }}
+      animate={{ 
+        scale: [1, 1.05, 1],
+        opacity: 1,
+        boxShadow: [
+          "0 10px 30px -5px hsl(258 96% 70% / 0.3)",
+          "0 15px 40px -5px hsl(258 96% 70% / 0.5)",
+          "0 10px 30px -5px hsl(258 96% 70% / 0.3)"
+        ]
+      }}
+      transition={{ 
+        scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+        boxShadow: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+        opacity: { delay: 1, duration: 0.3 }
+      }}
+      whileHover={{ scale: 1.1, boxShadow: "0 15px 40px -5px hsl(258 96% 70% / 0.6)" }}
       whileTap={{ scale: 0.95 }}
     >
       <span className="text-sm font-semibold whitespace-nowrap">Concorra a um ingresso!</span>
