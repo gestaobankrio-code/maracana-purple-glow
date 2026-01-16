@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import maracanaStadium from "@/assets/maracana-stadium.avif";
+import maracanaNight from "@/assets/maracana-night.png";
 import { CheckCircle, Ticket, Users, Star } from "lucide-react";
 
 const HeroSection = () => {
@@ -28,16 +28,16 @@ const HeroSection = () => {
         style={{ y }}
       >
         <motion.img
-          src={maracanaStadium}
-          alt="Maracanã Stadium"
+          src={maracanaNight}
+          alt="Maracanã Stadium at Night"
           className="w-full h-[120%] object-cover"
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 20, ease: "linear" }}
         />
-        {/* Darker overlay for better text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/70 to-background" />
-        <div className="absolute inset-0 bg-primary/5 mix-blend-overlay" />
+        {/* Subtle overlay for text visibility while keeping image vibrant */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background" />
+        <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
       </motion.div>
 
       {/* Animated particles */}
@@ -71,7 +71,7 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl text-foreground font-bold mb-2 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-2 tracking-tight drop-shadow-lg"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -79,7 +79,7 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-primary font-bold mb-6 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl text-primary font-bold mb-6 tracking-tight drop-shadow-lg"
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
@@ -87,7 +87,7 @@ const HeroSection = () => {
             seu próximo destino
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-foreground/80 font-medium mb-10"
+            className="text-xl md:text-2xl text-white font-medium mb-10 drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -101,7 +101,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
           <motion.span 
@@ -113,7 +113,7 @@ const HeroSection = () => {
           </motion.span>.
         </motion.p>
 
-        {/* Support Elements */}
+        {/* Support Elements - Eye-catching animated cards */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -123,24 +123,81 @@ const HeroSection = () => {
           {supportElements.map((element, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 50, scale: 0.5, rotateY: -30 }}
+              animate={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
               transition={{ 
-                duration: 0.5, 
-                delay: 1.2 + index * 0.15,
+                duration: 0.7, 
+                delay: 1.2 + index * 0.2,
                 type: "spring",
-                stiffness: 120
+                stiffness: 100,
+                damping: 12
               }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-background/70 backdrop-blur-md border border-primary/25 rounded-xl p-4 cursor-default"
+              whileHover={{ 
+                scale: 1.1, 
+                y: -10,
+                boxShadow: "0 20px 40px -10px hsl(258 96% 70% / 0.5)"
+              }}
+              className="relative bg-black/60 backdrop-blur-lg border-2 border-primary/50 rounded-xl p-5 cursor-default overflow-hidden group"
             >
+              {/* Glowing border animation */}
               <motion.div
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
+                className="absolute inset-0 rounded-xl border-2 border-primary/80"
+                animate={{ 
+                  opacity: [0.3, 0.8, 0.3],
+                  scale: [1, 1.02, 1]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  delay: index * 0.3,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Background pulse effect */}
+              <motion.div
+                className="absolute inset-0 bg-primary/20 rounded-xl"
+                animate={{ 
+                  opacity: [0, 0.3, 0],
+                  scale: [0.8, 1.1, 0.8]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity, 
+                  delay: index * 0.5,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Icon with bounce and glow */}
+              <motion.div
+                className="relative z-10"
+                animate={{ 
+                  y: [0, -5, 0],
+                  rotate: [0, 10, -10, 0]
+                }}
+                transition={{ 
+                  duration: 2.5, 
+                  repeat: Infinity, 
+                  delay: index * 0.4,
+                  ease: "easeInOut"
+                }}
               >
-                <element.icon className="w-5 h-5 text-primary mx-auto mb-2" />
+                <motion.div
+                  animate={{
+                    filter: [
+                      "drop-shadow(0 0 8px hsl(258 96% 70% / 0.5))",
+                      "drop-shadow(0 0 20px hsl(258 96% 70% / 0.9))",
+                      "drop-shadow(0 0 8px hsl(258 96% 70% / 0.5))"
+                    ]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                >
+                  <element.icon className="w-7 h-7 text-primary mx-auto mb-3" />
+                </motion.div>
               </motion.div>
-              <p className="text-xs md:text-sm text-foreground/80">{element.text}</p>
+              
+              <p className="relative z-10 text-xs md:text-sm text-white font-medium">{element.text}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -169,7 +226,7 @@ const HeroSection = () => {
             Quero concorrer aos ingressos
           </motion.a>
           <motion.p 
-            className="text-xs text-foreground/50"
+            className="text-xs text-white/60"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.8 }}
