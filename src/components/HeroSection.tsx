@@ -71,8 +71,12 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight drop-shadow-lg"
-            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight"
+            style={{ 
+              fontFamily: "'Roundkey', sans-serif", 
+              fontStyle: "italic",
+              textShadow: "0 0 30px rgba(235, 255, 112, 0.6), 0 0 60px rgba(235, 255, 112, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5)"
+            }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -80,8 +84,12 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight drop-shadow-lg"
-            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight"
+            style={{ 
+              fontFamily: "'Roundkey', sans-serif", 
+              fontStyle: "italic",
+              textShadow: "0 0 30px rgba(235, 255, 112, 0.6), 0 0 60px rgba(235, 255, 112, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5)"
+            }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
@@ -89,8 +97,11 @@ const HeroSection = () => {
             seu próximo destino
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-white font-medium mb-10 drop-shadow-md"
-            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
+            className="text-2xl md:text-3xl lg:text-4xl text-[#EBFF70] font-bold mb-10 tracking-wide"
+            style={{ 
+              fontFamily: "'Roundkey', sans-serif",
+              textShadow: "0 0 20px rgba(235, 255, 112, 0.5), 0 4px 15px rgba(0, 0, 0, 0.4)"
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
