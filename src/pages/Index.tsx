@@ -5,6 +5,7 @@ import HowToParticipate from "@/components/HowToParticipate";
 import AboutSection from "@/components/AboutSection";
 import FormSection from "@/components/FormSection";
 import Footer from "@/components/Footer";
+import SocialProofPopup from "@/components/SocialProofPopup";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <AboutSection />
       <FormSection />
       <Footer />
+      <SocialProofPopup />
     </main>
   );
 };
