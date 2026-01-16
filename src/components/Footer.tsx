@@ -10,7 +10,7 @@ const Footer = () => {
           <img
             src={logoInvestSmart}
             alt="InvestSmart XP"
-            className="h-9 w-auto opacity-80"
+            className="h-16 w-auto"
           />
 
           {/* Divider */}
