@@ -3,7 +3,14 @@ import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import camarote from "@/assets/camarote.jpg";
 import ScarcityBar from "./ScarcityBar";
 
@@ -25,6 +32,7 @@ const FormSection = () => {
     name: "",
     email: "",
     phone: "",
+    investmentAmount: "",
   });
 
   // Simula diminuição automática de ingressos para criar urgência
@@ -78,7 +86,7 @@ const FormSection = () => {
       return newValue;
     });
 
-    setFormData({ name: "", email: "", phone: "" });
+    setFormData({ name: "", email: "", phone: "", investmentAmount: "" });
     setIsSubmitting(false);
   };
 
@@ -346,6 +354,34 @@ const FormSection = () => {
                   maxLength={15}
                   className="bg-background/80 border-2 border-border/60 focus:border-primary h-14 md:h-16 rounded-xl text-base md:text-lg px-5 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50"
                 />
+              </motion.div>
+
+              {/* Campo Valor de Investimento */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 1.35 }}
+              >
+                <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
+                  <Wallet className="w-4 h-4 text-primary" />
+                  Qual o valor aproximado você tem disponível para investir atualmente?
+                </label>
+                <Select
+                  value={formData.investmentAmount}
+                  onValueChange={(value) => setFormData((prev) => ({ ...prev, investmentAmount: value }))}
+                  required
+                >
+                  <SelectTrigger className="bg-background/80 border-2 border-border/60 focus:border-primary h-14 md:h-16 rounded-xl text-base md:text-lg px-5 transition-all focus:shadow-lg focus:shadow-primary/20">
+                    <SelectValue placeholder="Selecione uma opção" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background border-2 border-border/60 rounded-xl">
+                    <SelectItem value="ate-50k" className="text-base py-3">Até R$50 mil</SelectItem>
+                    <SelectItem value="50k-100k" className="text-base py-3">de R$50 mil a R$100 mil</SelectItem>
+                    <SelectItem value="100k-300k" className="text-base py-3">de R$100 mil a R$300 mil</SelectItem>
+                    <SelectItem value="300k-1m" className="text-base py-3">de R$300 mil a R$1 milhão</SelectItem>
+                    <SelectItem value="acima-1m" className="text-base py-3">acima de R$1 milhão</SelectItem>
+                  </SelectContent>
+                </Select>
               </motion.div>
 
               {/* Botão de Submit */}
