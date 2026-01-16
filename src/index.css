@@ -4,6 +4,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Black+Ops+One&display=swap');
 
+@font-face {
+  font-family: 'Roundkey';
+  src: url('https://fonts.cdnfonts.com/css/roundkey') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roundkey';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Roundkey Italic'), local('Roundkey-Italic');
+}
+
 @layer base {
   :root {
     --background: 0 0% 0%;

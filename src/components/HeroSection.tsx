@@ -72,6 +72,7 @@ const HeroSection = () => {
           {/* Headline */}
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-2 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -79,7 +80,8 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-primary font-bold mb-6 tracking-tight drop-shadow-lg"
+            className="text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-6 tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
@@ -88,6 +90,7 @@ const HeroSection = () => {
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-white font-medium mb-10 drop-shadow-md"
+            style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
@@ -101,24 +104,24 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="text-base md:text-lg text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
+          className="text-base md:text-lg text-white max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md"
+          style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
         >
           Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
           <motion.span 
-            className="text-primary font-semibold"
+            className="text-white font-semibold"
             animate={{ opacity: [1, 0.7, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             camarote exclusivo
           </motion.span>.
         </motion.p>
-
         {/* Support Elements - Eye-catching animated cards */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto mb-12"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto mb-12"
         >
           {supportElements.map((element, index) => (
             <motion.div
@@ -137,7 +140,7 @@ const HeroSection = () => {
                 y: -10,
                 boxShadow: "0 20px 40px -10px hsl(258 96% 70% / 0.5)"
               }}
-              className="relative bg-black/60 backdrop-blur-lg border-2 border-primary/50 rounded-xl p-5 cursor-default overflow-hidden group"
+              className="relative bg-black/60 backdrop-blur-lg border-2 border-primary/50 rounded-2xl p-6 md:p-8 cursor-default overflow-hidden group"
             >
               {/* Glowing border animation */}
               <motion.div
@@ -193,11 +196,11 @@ const HeroSection = () => {
                   }}
                   transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
                 >
-                  <element.icon className="w-7 h-7 text-primary mx-auto mb-3" />
+                  <element.icon className="w-8 h-8 md:w-10 md:h-10 text-primary mx-auto mb-4" />
                 </motion.div>
               </motion.div>
               
-              <p className="relative z-10 text-xs md:text-sm text-white font-medium">{element.text}</p>
+              <p className="relative z-10 text-sm md:text-base text-white font-medium">{element.text}</p>
             </motion.div>
           ))}
         </motion.div>
