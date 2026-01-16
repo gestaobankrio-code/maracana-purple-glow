@@ -181,48 +181,52 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
             <span>Disponível</span>
           </div>
           
-          <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50">
-            {/* Barra preenchida (ingressos já usados) */}
-            <motion.div
-              className={`h-full bg-gradient-to-r ${getBarColor()} rounded-full relative overflow-hidden`}
-              initial={{ width: 0 }}
-              animate={{ width: `${usedPercentage}%` }}
-              transition={{ duration: 2, ease: "easeOut" }}
-            >
-              {/* Efeito de brilho correndo */}
+          {/* Container da barra com espaço extra para o indicador */}
+          <div className="relative py-2">
+            <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50">
+              {/* Barra preenchida (ingressos já usados) */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
-              />
-              
-              {/* Partículas brilhantes */}
-              {urgency !== "normal" && [...Array(5)].map((_, i) => (
+                className={`h-full bg-gradient-to-r ${getBarColor()} rounded-full relative overflow-hidden`}
+                initial={{ width: 0 }}
+                animate={{ width: `${usedPercentage}%` }}
+                transition={{ duration: 2, ease: "easeOut" }}
+              >
+                {/* Efeito de brilho correndo */}
                 <motion.div
-                  key={i}
-                  className="absolute w-1 h-full bg-white/60"
-                  style={{ left: `${20 * i}%` }}
-                  animate={{ opacity: [0, 1, 0], scaleY: [0.5, 1, 0.5] }}
-                  transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  animate={{ x: ["-100%", "200%"] }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
                 />
-              ))}
-            </motion.div>
+                
+                {/* Partículas brilhantes */}
+                {urgency !== "normal" && [...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-full bg-white/60"
+                    style={{ left: `${20 * i}%` }}
+                    animate={{ opacity: [0, 1, 0], scaleY: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                  />
+                ))}
+              </motion.div>
+            </div>
             
-            {/* Indicador pulsante no final da barra */}
+            {/* Indicador pulsante - fora do overflow-hidden */}
             <motion.div
-              className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 md:w-8 md:h-8 rounded-full bg-white shadow-xl flex items-center justify-center`}
-              style={{ left: `calc(${usedPercentage}% - 12px)` }}
+              className="absolute top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
+              style={{ left: `calc(${Math.max(5, Math.min(95, usedPercentage))}% - 20px)` }}
+              initial={{ scale: 0 }}
               animate={{ 
-                scale: [1, 1.2, 1],
+                scale: [1, 1.15, 1],
                 boxShadow: [
-                  "0 0 0 0 rgba(255,255,255,0.4)",
-                  "0 0 0 10px rgba(255,255,255,0)",
-                  "0 0 0 0 rgba(255,255,255,0)"
+                  "0 0 0 0 rgba(147, 51, 234, 0.4)",
+                  "0 0 0 12px rgba(147, 51, 234, 0)",
+                  "0 0 0 0 rgba(147, 51, 234, 0)"
                 ]
               }}
-              transition={{ duration: 1.2, repeat: Infinity }}
+              transition={{ duration: 1.2, repeat: Infinity, delay: 2 }}
             >
-              <Flame className="w-3 h-3 md:w-4 md:h-4 text-orange-500" />
+              <Flame className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
             </motion.div>
           </div>
 
