@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy } from "lucide-react";
 import camarote from "@/assets/camarote.jpg";
 import ScarcityBar from "./ScarcityBar";
 
@@ -95,7 +95,7 @@ const FormSection = () => {
     <section
       id="inscricao"
       ref={ref}
-      className="py-28 md:py-36 relative overflow-hidden"
+      className="py-32 md:py-44 relative overflow-hidden"
     >
       {/* Background Image with Parallax and Purple Effect */}
       <motion.div className="absolute inset-0" style={{ y }}>
@@ -109,7 +109,7 @@ const FormSection = () => {
       </motion.div>
       
       {/* Animated particles */}
-      {[...Array(15)].map((_, i) => (
+      {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 bg-primary/40 rounded-full"
@@ -143,7 +143,7 @@ const FormSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-6"
+          className="text-center mb-8"
         >
           <motion.div 
             className="flex items-baseline justify-center gap-3 mb-4"
@@ -152,7 +152,7 @@ const FormSection = () => {
             transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
           >
             <motion.span 
-              className="text-6xl md:text-7xl lg:text-8xl text-primary font-bold tracking-tight"
+              className="text-7xl md:text-8xl lg:text-9xl text-primary font-bold tracking-tight"
               animate={{ 
                 textShadow: [
                   "0 0 20px hsl(258 96% 70% / 0.3)",
@@ -164,10 +164,10 @@ const FormSection = () => {
             >
               300
             </motion.span>
-            <span className="text-2xl md:text-3xl text-foreground font-bold">ingressos</span>
+            <span className="text-3xl md:text-4xl text-foreground font-bold">ingressos</span>
           </motion.div>
           <motion.h2 
-            className="text-2xl md:text-3xl lg:text-4xl text-foreground font-bold mb-3"
+            className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -175,7 +175,7 @@ const FormSection = () => {
             Vários sorteios
           </motion.h2>
           <motion.p 
-            className="text-lg md:text-xl text-foreground/60"
+            className="text-xl md:text-2xl text-foreground/60"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -189,80 +189,130 @@ const FormSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.6 }}
-          className="max-w-lg mx-auto mb-14"
+          className="max-w-lg mx-auto mb-12"
         >
-          <div className="flex flex-col items-center gap-3 text-center">
+          <div className="flex flex-col items-center gap-4 text-center">
             <motion.p 
-              className="text-foreground/70 flex items-center gap-2"
+              className="text-lg text-foreground/70 flex items-center gap-2"
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.7 }}
             >
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Sparkles className="w-5 h-5 text-primary" />
               Cada sorteio é uma nova chance
             </motion.p>
             <motion.p 
-              className="text-foreground/70 flex items-center gap-2"
+              className="text-lg text-foreground/70 flex items-center gap-2"
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.8 }}
             >
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Sparkles className="w-5 h-5 text-primary" />
               Cada jogo é uma experiência diferente
             </motion.p>
             <motion.p 
-              className="text-primary font-medium flex items-center gap-2"
+              className="text-lg text-primary font-semibold flex items-center gap-2"
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.9 }}
               whileHover={{ scale: 1.05 }}
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-5 h-5" />
               Quanto antes você participa, mais oportunidades
             </motion.p>
           </div>
         </motion.div>
 
-        {/* Form */}
+        {/* Form Container */}
         <motion.div
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 1, type: "spring" }}
-          className="max-w-md mx-auto"
+          className="max-w-xl mx-auto"
         >
           {/* Barra de Escassez */}
           <ScarcityBar availableTickets={availableTickets} totalTickets={300} />
 
+          {/* Formulário Principal */}
           <motion.form
             onSubmit={handleSubmit}
-            className="bg-background/90 backdrop-blur-md border border-primary/20 rounded-2xl p-8 md:p-10 shadow-xl shadow-primary/10"
-            whileHover={{ borderColor: "hsl(258 96% 70% / 0.4)" }}
+            className="relative bg-gradient-to-b from-background/95 to-background/90 backdrop-blur-xl border-2 border-primary/30 rounded-3xl p-8 md:p-12 shadow-2xl shadow-primary/20"
+            whileHover={{ borderColor: "hsl(258 96% 70% / 0.5)" }}
+            animate={{
+              boxShadow: [
+                "0 25px 50px -12px rgba(147, 51, 234, 0.2)",
+                "0 25px 50px -12px rgba(147, 51, 234, 0.35)",
+                "0 25px 50px -12px rgba(147, 51, 234, 0.2)"
+              ]
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
           >
-            <div className="space-y-5">
+            {/* Decoração no topo */}
+            <div className="absolute -top-px left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-t-3xl" />
+            
+            {/* Ícones decorativos */}
+            <motion.div
+              className="absolute top-4 right-4 opacity-30"
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+            >
+              <Trophy className="w-8 h-8 text-primary" />
+            </motion.div>
+            <motion.div
+              className="absolute top-4 left-4 opacity-30"
+              animate={{ rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+            >
+              <Gift className="w-8 h-8 text-primary" />
+            </motion.div>
+
+            {/* Header do formulário */}
+            <div className="text-center mb-8">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-2 mb-4"
+                animate={{ scale: [1, 1.02, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Star className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">Inscrição Gratuita</span>
+              </motion.div>
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                Garanta sua participação
+              </h3>
+              <p className="text-foreground/60">
+                Preencha seus dados e concorra aos ingressos
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Campo Nome */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 1.1 }}
               >
-                <label className="block text-foreground text-sm font-medium mb-2">
+                <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
+                  <User className="w-4 h-4 text-primary" />
                   Nome completo
                 </label>
                 <Input
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Seu nome"
+                  placeholder="Digite seu nome completo"
                   required
-                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl transition-all focus:shadow-lg focus:shadow-primary/10"
+                  className="bg-background/80 border-2 border-border/60 focus:border-primary h-14 md:h-16 rounded-xl text-base md:text-lg px-5 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50"
                 />
               </motion.div>
 
+              {/* Campo Email */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 1.2 }}
               >
-                <label className="block text-foreground text-sm font-medium mb-2">
+                <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
+                  <Mail className="w-4 h-4 text-primary" />
                   E-mail
                 </label>
                 <Input
@@ -272,17 +322,19 @@ const FormSection = () => {
                   onChange={handleChange}
                   placeholder="seu@email.com"
                   required
-                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl transition-all focus:shadow-lg focus:shadow-primary/10"
+                  className="bg-background/80 border-2 border-border/60 focus:border-primary h-14 md:h-16 rounded-xl text-base md:text-lg px-5 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50"
                 />
               </motion.div>
 
+              {/* Campo Telefone */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 1.3 }}
               >
-                <label className="block text-foreground text-sm font-medium mb-2">
-                  Telefone
+                <label className="flex items-center gap-2 text-foreground text-sm font-semibold mb-3">
+                  <Phone className="w-4 h-4 text-primary" />
+                  Telefone / WhatsApp
                 </label>
                 <Input
                   name="phone"
@@ -292,48 +344,57 @@ const FormSection = () => {
                   placeholder="(00) 00000-0000"
                   required
                   maxLength={15}
-                  className="bg-background border-border/60 focus:border-primary h-12 rounded-xl transition-all focus:shadow-lg focus:shadow-primary/10"
+                  className="bg-background/80 border-2 border-border/60 focus:border-primary h-14 md:h-16 rounded-xl text-base md:text-lg px-5 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50"
                 />
               </motion.div>
 
+              {/* Botão de Submit */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 1.4 }}
+                className="pt-4"
               >
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base tracking-wide rounded-xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-2 mt-2 shadow-lg shadow-primary/25"
+                  className="w-full h-16 md:h-20 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-bold text-lg md:text-xl tracking-wide rounded-2xl transition-all hover:scale-[1.02] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-primary/30"
                 >
                   {isSubmitting ? (
                     <motion.div 
-                      className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                      className="w-7 h-7 border-3 border-primary-foreground border-t-transparent rounded-full"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     />
                   ) : (
                     <>
+                      <Gift className="w-6 h-6" />
                       Participar dos sorteios agora
                       <motion.div
-                        animate={{ x: [0, 5, 0] }}
+                        animate={{ x: [0, 8, 0] }}
                         transition={{ duration: 1.5, repeat: Infinity }}
                       >
-                        <ArrowRight className="w-5 h-5" />
+                        <ArrowRight className="w-6 h-6" />
                       </motion.div>
                     </>
                   )}
                 </Button>
               </motion.div>
 
-              <motion.p 
-                className="text-center text-xs text-muted-foreground pt-2"
+              {/* Texto de segurança */}
+              <motion.div 
+                className="text-center pt-4 space-y-2"
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ delay: 1.5 }}
               >
-                Campanha válida enquanto houver ingressos disponíveis
-              </motion.p>
+                <p className="text-sm text-muted-foreground">
+                  🔒 Seus dados estão seguros conosco
+                </p>
+                <p className="text-xs text-muted-foreground/70">
+                  Campanha válida enquanto houver ingressos disponíveis
+                </p>
+              </motion.div>
             </div>
           </motion.form>
         </motion.div>
