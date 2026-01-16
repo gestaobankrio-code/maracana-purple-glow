@@ -70,6 +70,17 @@ const FormSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validação de todos os campos obrigatórios
+    if (!formData.name || !formData.email || !formData.phone || !formData.investmentAmount) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos do formulário.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
