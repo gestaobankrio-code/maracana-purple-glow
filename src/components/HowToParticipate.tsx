@@ -2,6 +2,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { UserPlus, Wallet, Trophy, Gift, CheckCircle, Building } from "lucide-react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
+import ticketTorcida from "@/assets/ticket-torcida.png";
 
 const HowToParticipate = () => {
   const ref = useRef(null);
@@ -67,30 +68,48 @@ const HowToParticipate = () => {
       />
 
       <div className="container mx-auto px-6 relative">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <motion.h2 
-            className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-2 tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
+        {/* Section Title with Ticket Image */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
           >
-            Como participar
-          </motion.h2>
-          <motion.p 
-            className="text-xl md:text-2xl text-primary font-semibold"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            <motion.h2 
+              className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-2 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Como participar
+            </motion.h2>
+            <motion.p 
+              className="text-xl md:text-2xl text-primary font-semibold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              dos sorteios
+            </motion.p>
+          </motion.div>
+          
+          {/* Ticket Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 60, rotate: 5 }}
+            animate={isInView ? { opacity: 1, x: 0, rotate: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+            className="flex justify-center lg:justify-end"
           >
-            dos sorteios
-          </motion.p>
-        </motion.div>
+            <motion.img
+              src={ticketTorcida}
+              alt="Ingresso Torcida InvestSmart"
+              className="w-full max-w-md drop-shadow-2xl"
+              whileHover={{ scale: 1.05, rotate: -2 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            />
+          </motion.div>
+        </div>
 
         {/* Steps */}
         <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto mb-20">
