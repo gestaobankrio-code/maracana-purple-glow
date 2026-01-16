@@ -6,6 +6,7 @@ import AboutSection from "@/components/AboutSection";
 import FormSection from "@/components/FormSection";
 import Footer from "@/components/Footer";
 import SocialProofPopup from "@/components/SocialProofPopup";
+import FloatingTicketButton from "@/components/FloatingTicketButton";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <FormSection />
       <Footer />
       <SocialProofPopup />
+      <FloatingTicketButton />
     </main>
   );
 };
