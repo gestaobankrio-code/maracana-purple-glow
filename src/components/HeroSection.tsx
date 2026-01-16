@@ -80,7 +80,7 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl text-white mb-6 tracking-tight drop-shadow-lg"
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-6 tracking-tight drop-shadow-lg"
             style={{ fontFamily: "'Roundkey', sans-serif", fontStyle: "italic" }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
