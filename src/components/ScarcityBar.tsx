@@ -95,7 +95,7 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
     >
       {/* Container principal com borda animada */}
       <motion.div 
-        className={`relative p-6 md:p-8 rounded-2xl border-2 ${message.bgColor} backdrop-blur-sm shadow-2xl ${getBgGlow()}`}
+        className={`relative p-4 md:p-6 rounded-2xl border-2 ${message.bgColor} backdrop-blur-sm shadow-2xl ${getBgGlow()} max-w-3xl mx-auto`}
         animate={urgency === "critical" ? { 
           boxShadow: [
             "0 0 20px rgba(239, 68, 68, 0.3)",
@@ -182,8 +182,8 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
           </div>
           
           {/* Container da barra com espaço extra para o indicador */}
-          <div className="relative">
-            <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50">
+          <div className="relative h-10 md:h-12 flex items-center">
+            <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50 w-full">
               {/* Barra preenchida (ingressos já usados) */}
               <motion.div
                 className={`h-full bg-gradient-to-r ${getBarColor()} rounded-full relative overflow-hidden`}
@@ -211,13 +211,11 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
               </motion.div>
             </div>
             
-            {/* Indicador pulsante - posicionado verticalmente no centro da barra */}
+            {/* Indicador pulsante - posicionado verticalmente no centro */}
             <motion.div
-              className="absolute w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
+              className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
               style={{ 
-                left: `calc(${Math.max(5, Math.min(95, usedPercentage))}% - 20px)`,
-                top: '50%',
-                transform: 'translateY(-50%)'
+                left: `calc(${Math.max(3, Math.min(97, usedPercentage))}% - 16px)`
               }}
               initial={{ scale: 0 }}
               animate={{ 
@@ -230,7 +228,7 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
               }}
               transition={{ duration: 1.2, repeat: Infinity, delay: 2 }}
             >
-              <Flame className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+              <Flame className="w-4 h-4 md:w-5 md:h-5 text-orange-500" />
             </motion.div>
           </div>
 

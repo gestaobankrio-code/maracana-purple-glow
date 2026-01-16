@@ -71,7 +71,7 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl text-white mb-2 tracking-tight drop-shadow-lg"
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight drop-shadow-lg font-light"
             style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -80,7 +80,7 @@ const HeroSection = () => {
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-6xl md:text-7xl lg:text-8xl text-white mb-8 tracking-tight drop-shadow-lg"
+            className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight drop-shadow-lg font-light"
             style={{ fontFamily: "'Roundkey', sans-serif" }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -110,21 +110,7 @@ const HeroSection = () => {
           className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-2xl mx-auto mb-12 leading-relaxed drop-shadow-md font-normal"
           style={{ fontFamily: "'Roundkey', sans-serif" }}
         >
-          Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã em um{" "}
-          <motion.span 
-            className="text-primary font-bold text-xl md:text-2xl lg:text-3xl"
-            animate={{ 
-              textShadow: [
-                "0 0 10px hsl(258 96% 70% / 0.5)",
-                "0 0 25px hsl(258 96% 70% / 0.8)",
-                "0 0 10px hsl(258 96% 70% / 0.5)"
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            CAMAROTE EXCLUSIVO
-          </motion.span>
-          !
+          Abra sua conta na XP, por meio da InvestSmart, e concorra a ingressos para curtir jogos no Maracanã!
         </motion.p>
         {/* Support Elements - Eye-catching animated cards */}
         <motion.div
