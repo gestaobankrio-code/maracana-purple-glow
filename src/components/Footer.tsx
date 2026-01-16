@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import logoInvestSmart from "@/assets/logo-investsmart-new.png";
+import logoInvestSmart from "@/assets/logo-investsmart-footer.png";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           <img
             src={logoInvestSmart}
             alt="InvestSmart XP"
-            className="h-[22px] w-auto opacity-80"
+            className="h-9 w-auto opacity-80"
           />
 
           {/* Divider */}
