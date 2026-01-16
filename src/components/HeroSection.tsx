@@ -71,28 +71,46 @@ const HeroSection = () => {
         >
           {/* Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-2 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl mb-2 tracking-tight bg-gradient-to-r from-white via-[#EBFF70] to-white bg-clip-text text-transparent"
             style={{ 
               fontFamily: "'Roundkey', sans-serif", 
               fontStyle: "italic",
-              textShadow: "0 0 30px rgba(235, 255, 112, 0.6), 0 0 60px rgba(235, 255, 112, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5)"
+              backgroundSize: "200% 100%"
             }}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0,
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+            }}
+            transition={{ 
+              opacity: { duration: 0.8, delay: 0.3 },
+              y: { duration: 0.8, delay: 0.3 },
+              backgroundPosition: { duration: 5, repeat: Infinity, ease: "linear" }
+            }}
           >
             O Maracanã pode ser
           </motion.h1>
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl mb-8 tracking-tight bg-gradient-to-r from-[#EBFF70] via-white to-[#EBFF70] bg-clip-text text-transparent"
             style={{ 
               fontFamily: "'Roundkey', sans-serif", 
               fontStyle: "italic",
-              textShadow: "0 0 30px rgba(235, 255, 112, 0.6), 0 0 60px rgba(235, 255, 112, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5)"
+              backgroundSize: "200% 100%"
             }}
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
+            animate={{ 
+              opacity: 1, 
+              y: 0, 
+              scale: 1,
+              backgroundPosition: ["100% 50%", "0% 50%", "100% 50%"]
+            }}
+            transition={{ 
+              opacity: { duration: 0.8, delay: 0.5 },
+              y: { duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 },
+              scale: { duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 },
+              backgroundPosition: { duration: 5, repeat: Infinity, ease: "linear" }
+            }}
           >
             seu próximo destino
           </motion.h1>
