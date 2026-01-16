@@ -1,7 +1,7 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import torcidaInvestsmart from "@/assets/torcida-investsmart.png";
-import playersCelebrating from "@/assets/players-celebrating.jpg";
+import darkPatternBg from "@/assets/dark-pattern-bg.png";
 
 const MaracanaSection = () => {
   const ref = useRef(null);
@@ -22,11 +22,10 @@ const MaracanaSection = () => {
       {/* Background Image with Parallax */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <img
-          src={torcidaInvestsmart}
-          alt="Torcida InvestSmart"
+          src={darkPatternBg}
+          alt="Background"
           className="w-full h-[130%] object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background/80" />
       </motion.div>
 
       <div className="container mx-auto px-6 relative">
@@ -128,8 +127,8 @@ const MaracanaSection = () => {
               transition={{ type: "spring", stiffness: 200 }}
             >
               <motion.img
-                src={playersCelebrating}
-                alt="Jogadores celebrando"
+                src={torcidaInvestsmart}
+                alt="Torcida InvestSmart"
                 className="w-full h-[400px] md:h-[500px] object-cover"
                 initial={{ scale: 1.2 }}
                 animate={isInView ? { scale: 1 } : {}}
