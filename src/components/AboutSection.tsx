@@ -1,7 +1,7 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Building2, Users, DollarSign, MapPin, Shield, HeadphonesIcon, BadgeCheck, Briefcase } from "lucide-react";
-import flamengoFans from "@/assets/flamengo-fans.jpg";
+import neutralFans from "@/assets/fans-neutral-clean.jpg";
 
 // Animated Counter Component - SLOWER animation
 const AnimatedCounter = ({ 
@@ -81,7 +81,7 @@ const AboutSection = () => {
       {/* Background Image with Parallax and Purple Effect */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <img
-          src={flamengoFans}
+          src={neutralFans}
           alt="Torcida"
           className="w-full h-[130%] object-cover opacity-20"
         />
