@@ -355,6 +355,15 @@ const FormSection = () => {
 
       console.log('Form submitted successfully:', data);
 
+      // Dispara evento Lead do Meta Pixel
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          content_name: 'Torcida InvestSmart',
+          content_category: 'Sorteio VIP Maracanã',
+          value: formData.investmentAmount,
+        });
+      }
+
       // Dispara fogos de artifício
       fireConfetti();
       
