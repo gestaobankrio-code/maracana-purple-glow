@@ -4,6 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle } from "lucide-react";
 import {
   Select,
@@ -330,23 +331,54 @@ const FormSection = () => {
     
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Envia os dados para o Google Sheets via edge function
+      const { data, error } = await supabase.functions.invoke('submit-to-sheets', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          investmentAmount: formData.investmentAmount,
+        },
+      });
 
-    // Dispara fogos de artifício
-    fireConfetti();
-    
-    // Mostra modal de celebração
-    setShowCelebration(true);
+      if (error) {
+        console.error('Error submitting form:', error);
+        toast({
+          title: "Erro ao enviar",
+          description: "Ocorreu um erro ao enviar sua inscrição. Tente novamente.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
 
-    // Diminui os ingressos disponíveis quando alguém se inscreve
-    setAvailableTickets(prev => {
-      const newValue = Math.max(10, prev - 1);
-      localStorage.setItem('availableTickets', newValue.toString());
-      return newValue;
-    });
+      console.log('Form submitted successfully:', data);
 
-    setFormData({ name: "", email: "", phone: "", investmentAmount: "" });
-    setIsSubmitting(false);
+      // Dispara fogos de artifício
+      fireConfetti();
+      
+      // Mostra modal de celebração
+      setShowCelebration(true);
+
+      // Diminui os ingressos disponíveis quando alguém se inscreve
+      setAvailableTickets(prev => {
+        const newValue = Math.max(10, prev - 1);
+        localStorage.setItem('availableTickets', newValue.toString());
+        return newValue;
+      });
+
+      setFormData({ name: "", email: "", phone: "", investmentAmount: "" });
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      toast({
+        title: "Erro inesperado",
+        description: "Ocorreu um erro inesperado. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
