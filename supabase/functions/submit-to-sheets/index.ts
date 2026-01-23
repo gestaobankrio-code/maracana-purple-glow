@@ -7,7 +7,6 @@ const corsHeaders = {
 
 // Google Sheets API configuration
 const SPREADSHEET_ID = '1CP1qXQD7MgVtXfe-hPv-z_ThlT9aD3lGzcQZ2lhIZKU';
-const SHEET_NAME = 'Sheet1';
 
 async function getAccessToken(): Promise<string> {
   const serviceAccountEmail = Deno.env.get('GOOGLE_SERVICE_ACCOUNT_EMAIL');
@@ -105,7 +104,8 @@ async function getAccessToken(): Promise<string> {
 }
 
 async function appendToSheet(accessToken: string, values: string[]): Promise<void> {
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!A:D:append?valueInputOption=USER_ENTERED`;
+  // Use A:D range without sheet name - appends to the first sheet
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/A:D:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
 
   const response = await fetch(url, {
     method: 'POST',
