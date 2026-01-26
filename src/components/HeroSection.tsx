@@ -15,7 +15,7 @@ const HeroSection = () => {
 
   const supportElements = [
     { icon: Ticket, text: "300 ingressos no total" },
-    { icon: Users, text: "150 pares em vários sorteios" },
+    { icon: Users, text: "150 pares para você concorrer" },
     { icon: Star, text: "Experiência premium em camarote" },
     { icon: CheckCircle, text: "Para quem se inscrever e abrir conta" },
   ];

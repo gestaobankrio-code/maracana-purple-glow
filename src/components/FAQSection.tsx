@@ -15,14 +15,14 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "Quem pode participar do sorteio?",
+      question: "Quem pode concorrer?",
       answer:
         "Qualquer pessoa maior de 18 anos que seja cliente InvestSmart XP pode participar. Basta preencher o formulário de inscrição com seus dados.",
     },
     {
-      question: "Como funciona o sorteio?",
+      question: "Como funciona a campanha?",
       answer:
-        "O sorteio será realizado de forma eletrônica e transparente. Todos os participantes inscritos terão chances iguais de serem sorteados. O resultado será divulgado por e-mail e em nossas redes sociais.",
+        "A seleção será realizada de forma eletrônica e transparente. Todos os participantes inscritos terão chances iguais de serem selecionados. O resultado será divulgado por e-mail e em nossas redes sociais.",
     },
     {
       question: "O que está incluso no prêmio?",
@@ -30,9 +30,9 @@ const FAQSection = () => {
         "O prêmio inclui 2 ingressos para o camarote InvestSmart no Maracanã, com open bar premium, buffet exclusivo, estacionamento VIP e acesso à área lounge com a melhor vista do estádio.",
     },
     {
-      question: "Quando será realizado o sorteio?",
+      question: "Quando será realizada a seleção?",
       answer:
-        "O sorteio será realizado ao final do período de inscrições. O contador regressivo no topo da página mostra exatamente quanto tempo resta para participar.",
+        "A seleção será realizada ao final do período de inscrições. O contador regressivo no topo da página mostra exatamente quanto tempo resta para participar.",
     },
     {
       question: "Posso transferir o prêmio para outra pessoa?",
@@ -40,7 +40,7 @@ const FAQSection = () => {
         "Não, o prêmio é pessoal e intransferível. O ganhador deverá comparecer ao evento com documento de identificação válido.",
     },
     {
-      question: "Como saberei se fui sorteado?",
+      question: "Como saberei se fui selecionado?",
       answer:
         "Entraremos em contato através do e-mail e telefone cadastrados no formulário de inscrição. Também publicaremos o resultado em nossas redes sociais oficiais.",
     },

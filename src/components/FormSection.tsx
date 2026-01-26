@@ -359,7 +359,7 @@ const FormSection = () => {
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'Lead', {
           content_name: 'Torcida InvestSmart',
-          content_category: 'Sorteio VIP Maracanã',
+          content_category: 'Concorra VIP Maracanã',
           value: formData.investmentAmount,
         });
       }
@@ -480,7 +480,7 @@ const FormSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Vários sorteios
+            Várias chances de concorrer
           </motion.h2>
           <motion.p 
             className="text-xl md:text-2xl text-foreground/60"
@@ -507,7 +507,7 @@ const FormSection = () => {
               transition={{ delay: 0.7 }}
             >
               <Sparkles className="w-5 h-5 text-primary" />
-              Cada sorteio é uma nova chance
+              Cada seleção é uma nova chance
             </motion.p>
             <motion.p 
               className="text-lg text-foreground/70 flex items-center gap-2"
@@ -801,7 +801,7 @@ const FormSection = () => {
                 transition={{ delay: 0.4 }}
                 className="text-xl font-semibold text-primary mb-8"
               >
-                🍀 Boa sorte no sorteio!
+                🍀 Boa sorte! Concorra e ganhe!
               </motion.p>
 
               {/* Botão fechar */}
@@ -953,7 +953,7 @@ const FormSection = () => {
                 </div>
                 <div className="flex items-center gap-2 justify-center">
                   <Trophy className="w-4 h-4 text-primary" />
-                  <span>Vários sorteios durante a temporada</span>
+                  <span>Várias chances durante a temporada</span>
                 </div>
                 <div className="flex items-center gap-2 justify-center">
                   <Star className="w-4 h-4 text-primary" />
