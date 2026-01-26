@@ -5,7 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle, FileText } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -43,6 +51,7 @@ const FormSection = () => {
     phone: "",
     investmentAmount: "",
   });
+  const [acceptedRegulation, setAcceptedRegulation] = useState(false);
 
   // Countdown timer para o exit intent popup
   useEffect(() => {
@@ -328,6 +337,16 @@ const FormSection = () => {
       });
       return;
     }
+
+    // Validação do aceite do regulamento
+    if (!acceptedRegulation) {
+      toast({
+        title: "Regulamento",
+        description: "Você precisa ler e aceitar o regulamento para continuar.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     setIsSubmitting(true);
 
@@ -378,6 +397,7 @@ const FormSection = () => {
       });
 
       setFormData({ name: "", email: "", phone: "", investmentAmount: "" });
+      setAcceptedRegulation(false);
     } catch (err) {
       console.error('Unexpected error:', err);
       toast({
@@ -682,6 +702,126 @@ const FormSection = () => {
                     <SelectItem value="acima-1m" className="text-base py-3">acima de R$1 milhão</SelectItem>
                   </SelectContent>
                 </Select>
+              </motion.div>
+
+              {/* Aceite do Regulamento */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 1.38 }}
+                className="flex items-start gap-3"
+              >
+                <Checkbox
+                  id="regulation"
+                  checked={acceptedRegulation}
+                  onCheckedChange={(checked) => setAcceptedRegulation(checked === true)}
+                  className="mt-1 h-5 w-5 border-2 border-primary/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                />
+                <label htmlFor="regulation" className="text-sm text-foreground/80 leading-relaxed cursor-pointer">
+                  Li e concordo com o{" "}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button
+                        type="button"
+                        className="text-primary hover:text-primary/80 underline underline-offset-2 font-medium inline-flex items-center gap-1"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                        Regulamento da Campanha
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-background border-primary/30">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+                          <FileText className="w-5 h-5 text-primary" />
+                          Regulamento
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="prose prose-sm prose-invert max-w-none mt-4 text-foreground/80 space-y-4">
+                        <h3 className="text-lg font-bold text-primary">Experiência no Camarote Maracanã – InvestSmart</h3>
+                        
+                        <div className="space-y-4 text-sm">
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">1. DO CONCURSO</h4>
+                            <p>1.1. O presente concurso cultural, promovido pela InvestSmart, tem por finalidade promover o relacionamento institucional com seus clientes, sem qualquer modalidade de sorte, pagamento ou contraprestação.</p>
+                            <p>1.2. O concurso possui caráter exclusivamente cultural, sem qualquer modalidade de sorte, compra vinculada, pagamento ou exigência de contratação de serviços, em conformidade com a legislação aplicável.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">2. PERÍODO DE PARTICIPAÇÃO</h4>
+                            <p>2.1. Poderão participar exclusivamente os clientes que tenham aberto conta na InvestSmart, independentemente do motivo da abertura.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">3. COMO PARTICIPAR</h4>
+                            <p>3.1. Poderão participar do concurso cultural os clientes da PROMOTORA que atendam aos critérios de elegibilidade definidos pela InvestSmart.</p>
+                            <p>3.2. A participação é totalmente gratuita, sem qualquer exigência financeira ou comercial.</p>
+                            <p>3.3. Cada participante poderá ser contemplado 01 vez durante o período de vigência do concurso.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">4. FORMA DE SELEÇÃO</h4>
+                            <p>4.1. A escolha do participante contemplado será realizada com base em critérios institucionais e objetivos, definidos pela PROMOTORA, tais como, exemplificativamente:</p>
+                            <ul className="list-disc pl-5 space-y-1 mt-2">
+                              <li>perfil de relacionamento com a InvestSmart;</li>
+                              <li>aderência ao propósito institucional do evento; e</li>
+                              <li>histórico de relacionamento com a empresa.</li>
+                            </ul>
+                            <p className="mt-2">4.2. A seleção será realizada por comissão interna designada pela PROMOTORA, cuja decisão será soberana e irrecorrível.</p>
+                            <p>4.3. Não haverá sorteio, aleatoriedade ou qualquer outro elemento de risco na escolha do participante.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">5. DO PRÊMIO</h4>
+                            <p>5.1. O participante selecionado fará jus a 01 (um) par de ingressos para acesso ao Camarote do Estádio do Maracanã, em data e evento previamente definidos pela PROMOTORA.</p>
+                            <p>5.2. O prêmio é pessoal, intransferível e não poderá ser convertido em dinheiro, bens ou qualquer outra vantagem.</p>
+                            <p>5.3. A data do evento, bem como as condições de acesso ao camarote, será informada diretamente ao participante contemplado.</p>
+                            <p>5.4. O acesso ao camarote estará sujeito às normas internas do Estádio do Maracanã, bem como às regras de segurança do evento.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">6. CONDIÇÕES DE UTILIZAÇÃO DO PRÊMIO</h4>
+                            <p>6.1. O participante deverá comparecer ao evento no horário informado, portando documento oficial de identificação.</p>
+                            <p>6.2. A não utilização do ingresso na data indicada implicará a perda do direito ao prêmio, sem possibilidade de reagendamento ou compensação.</p>
+                            <p>6.3. O ingresso não poderá ser cedido, transferido, comercializado ou utilizado para fins diversos daqueles previstos neste regulamento.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">7. USO DE IMAGEM E DIREITOS DE PERSONALIDADE</h4>
+                            <p>7.1. Ao participar do concurso, o participante autoriza, de forma gratuita e por prazo indeterminado, a utilização de seu nome, imagem e voz pela PROMOTORA, exclusivamente para fins institucionais, promocionais e de divulgação do concurso.</p>
+                            <p>7.2. A autorização concedida neste item não implica qualquer obrigação de pagamento por parte da PROMOTORA.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">8. RESPONSABILIDADE</h4>
+                            <p>8.1. A PROMOTORA não se responsabiliza por despesas adicionais do participante, tais como transporte, alimentação, hospedagem ou quaisquer outros custos não expressamente previstos neste regulamento.</p>
+                            <p>8.2. A PROMOTORA não se responsabiliza por atos praticados pelo participante que contrariem as normas do Estádio do Maracanã ou da organização do evento.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">9. PROTEÇÃO DE DADOS PESSOAIS</h4>
+                            <p>9.1. Os dados pessoais coletados no âmbito deste concurso serão utilizados exclusivamente para fins de operacionalização do concurso, comunicação com os participantes e cumprimento de obrigações legais, nos termos da Lei nº 13.709/2018 (Lei Geral de Proteção de Dados – LGPD).</p>
+                            <p>9.2. De forma facultativa, o participante poderá manifestar seu consentimento expresso para receber comunicações institucionais, educativas e informativas da InvestSmart, por meios físicos ou eletrônicos.</p>
+                            <p>9.3. A concessão do consentimento referido no item 9.2 não constitui condição para participação no concurso, não interfere na avaliação das frases e não impacta a elegibilidade do participante.</p>
+                            <p>9.4. O consentimento poderá ser revogado a qualquer tempo, mediante solicitação pelos canais oficiais de atendimento da InvestSmart, sem qualquer prejuízo ao participante.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">10. DISPOSIÇÕES GERAIS</h4>
+                            <p>10.1. A participação implica a concordância integral com este regulamento.</p>
+                            <p>10.2. A InvestSmart poderá alterar datas ou regras por motivos de força maior, garantindo adequada comunicação aos participantes.</p>
+                            <p>10.3. Casos omissos serão analisados e decididos pelo Comitê Julgador.</p>
+                          </div>
+
+                          <div>
+                            <h4 className="font-bold text-foreground mb-2">11. CONTATO</h4>
+                            <p>Para dúvidas, entre em contato com o SAC pelo número (21) 99832-1296.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  {" "}<span className="text-primary">*</span>
+                </label>
               </motion.div>
 
               {/* Botão de Submit */}

@@ -118,39 +118,25 @@ const HowToParticipate = () => {
                 />
               )}
               
-              <motion.a 
+              <a 
                 href="#inscricao"
-                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full hover:border-primary/40 transition-colors block cursor-pointer"
-                whileHover={{ 
-                  scale: 1.03, 
-                  y: -8,
-                  boxShadow: "0 20px 40px -15px hsl(258 96% 70% / 0.3)"
-                }}
-                transition={{ type: "spring", stiffness: 200 }}
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
               >
                 {/* Step Icon */}
-                <motion.div 
-                  className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
+                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
                   <step.icon className="w-6 h-6 text-primary" />
-                </motion.div>
+                </div>
                 
-                <motion.span 
-                  className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase"
-                  animate={{ opacity: [1, 0.6, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                >
+                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
                   Passo {step.number}
-                </motion.span>
+                </span>
                 <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
                   {step.title}
                 </h3>
                 <p className="text-sm text-foreground/60 leading-relaxed">
                   {step.description}
                 </p>
-              </motion.a>
+              </a>
             </motion.div>
           ))}
         </div>
