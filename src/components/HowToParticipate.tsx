@@ -30,15 +30,15 @@ const HowToParticipate = () => {
     },
     {
       number: "03",
-      title: "Participe dos sorteios",
-      description: "Vários sorteios ao longo da campanha, sempre com 1 par de ingressos",
+      title: "Concorra aos ingressos",
+      description: "Várias chances ao longo da campanha, sempre com 1 par de ingressos",
       icon: Trophy,
     },
   ];
 
   const clarityPoints = [
     { icon: Gift, text: "Serão distribuídos 300 ingressos no total" },
-    { icon: Trophy, text: "Os prêmios são entregues por meio de vários sorteios" },
+    { icon: Trophy, text: "Os prêmios são entregues por meio de várias seleções" },
     { icon: Building, text: "A conta é aberta na XP com assessoria da InvestSmart" },
   ];
 
@@ -89,7 +89,7 @@ const HowToParticipate = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            dos sorteios
+            e concorra
           </motion.p>
         </motion.div>
 

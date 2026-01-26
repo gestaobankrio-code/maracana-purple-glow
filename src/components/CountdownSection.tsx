@@ -90,7 +90,7 @@ const CountdownSection = () => {
             TEMPO RESTANTE PARA
           </h2>
           <h2 className="font-display text-4xl md:text-6xl lg:text-7xl text-white/90">
-            O SORTEIO
+            CONCORRER
           </h2>
         </motion.div>
 
