@@ -113,79 +113,22 @@ const HeroSection = () => {
           {supportElements.map((element, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50, scale: 0.5, rotateY: -30 }}
-              animate={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ 
-                duration: 0.7, 
-                delay: 1.2 + index * 0.2,
-                type: "spring",
-                stiffness: 100,
-                damping: 12
+                duration: 0.5, 
+                delay: 1.2 + index * 0.1,
+                ease: "easeOut"
               }}
-              whileHover={{ 
-                scale: 1.1, 
-                y: -10,
-                boxShadow: "0 20px 40px -10px hsl(258 96% 70% / 0.5)"
-              }}
-              className="relative bg-black/60 backdrop-blur-lg border-2 border-primary/50 rounded-2xl p-6 md:p-8 cursor-default overflow-hidden group"
+              className="relative bg-black/60 backdrop-blur-lg border-2 border-primary/50 rounded-2xl p-6 md:p-8 cursor-default overflow-hidden group transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-2 hover:border-primary hover:shadow-[0_20px_40px_-10px_hsl(258_96%_70%_/_0.5)]"
             >
-              {/* Glowing border animation */}
-              <motion.div
-                className="absolute inset-0 rounded-xl border-2 border-primary/80"
-                animate={{ 
-                  opacity: [0.3, 0.8, 0.3],
-                  scale: [1, 1.02, 1]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  delay: index * 0.3,
-                  ease: "easeInOut"
-                }}
-              />
+              {/* Subtle glow on hover - CSS only */}
+              <div className="absolute inset-0 rounded-xl bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
               
-              {/* Background pulse effect */}
-              <motion.div
-                className="absolute inset-0 bg-primary/20 rounded-xl"
-                animate={{ 
-                  opacity: [0, 0.3, 0],
-                  scale: [0.8, 1.1, 0.8]
-                }}
-                transition={{ 
-                  duration: 3, 
-                  repeat: Infinity, 
-                  delay: index * 0.5,
-                  ease: "easeInOut"
-                }}
-              />
-              
-              {/* Icon with bounce and glow */}
-              <motion.div
-                className="relative z-10"
-                animate={{ 
-                  y: [0, -5, 0],
-                  rotate: [0, 10, -10, 0]
-                }}
-                transition={{ 
-                  duration: 2.5, 
-                  repeat: Infinity, 
-                  delay: index * 0.4,
-                  ease: "easeInOut"
-                }}
-              >
-                <motion.div
-                  animate={{
-                    filter: [
-                      "drop-shadow(0 0 8px hsl(258 96% 70% / 0.5))",
-                      "drop-shadow(0 0 20px hsl(258 96% 70% / 0.9))",
-                      "drop-shadow(0 0 8px hsl(258 96% 70% / 0.5))"
-                    ]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                >
-                  <element.icon className="w-8 h-8 md:w-10 md:h-10 text-primary mx-auto mb-4" />
-                </motion.div>
-              </motion.div>
+              {/* Icon */}
+              <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
+                <element.icon className="w-8 h-8 md:w-10 md:h-10 text-primary mx-auto mb-4 drop-shadow-[0_0_8px_hsl(258_96%_70%_/_0.5)] group-hover:drop-shadow-[0_0_16px_hsl(258_96%_70%_/_0.8)] transition-all duration-300" />
+              </div>
               
               <p className="relative z-10 text-sm md:text-base text-white font-medium">{element.text}</p>
             </motion.div>
