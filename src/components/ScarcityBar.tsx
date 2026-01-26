@@ -91,11 +91,11 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.6, type: "spring" }}
-      className="mb-8"
+      className="mb-6 sm:mb-8"
     >
       {/* Container principal com borda animada */}
       <motion.div 
-        className={`relative p-4 md:p-6 rounded-2xl border-2 ${message.bgColor} backdrop-blur-sm shadow-2xl ${getBgGlow()} max-w-3xl mx-auto`}
+        className={`relative p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border-2 ${message.bgColor} backdrop-blur-sm shadow-2xl ${getBgGlow()} max-w-3xl mx-auto`}
         animate={urgency === "critical" ? { 
           boxShadow: [
             "0 0 20px rgba(239, 68, 68, 0.3)",
@@ -111,29 +111,29 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
         } : {}}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        {/* Ícones animados de fundo */}
+        {/* Ícones animados de fundo - ocultos em mobile */}
         {urgency !== "normal" && (
           <>
             <motion.div
-              className="absolute top-3 right-3 opacity-20"
+              className="absolute top-3 right-3 opacity-20 hidden sm:block"
               animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Zap className="w-8 h-8 text-current" />
+              <Zap className="w-6 h-6 md:w-8 md:h-8 text-current" />
             </motion.div>
             <motion.div
-              className="absolute bottom-3 left-3 opacity-20"
+              className="absolute bottom-3 left-3 opacity-20 hidden sm:block"
               animate={{ rotate: [0, -10, 10, 0], scale: [1, 1.1, 1] }}
               transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
             >
-              <Ticket className="w-8 h-8 text-current" />
+              <Ticket className="w-6 h-6 md:w-8 md:h-8 text-current" />
             </motion.div>
           </>
         )}
 
         {/* Mensagem de urgência principal */}
         <motion.div 
-          className={`flex flex-col items-center gap-2 mb-6 ${message.color}`}
+          className={`flex flex-col items-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 ${message.color}`}
           animate={urgency === "critical" ? { 
             scale: [1, 1.03, 1],
           } : {}}
@@ -143,20 +143,20 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
             animate={{ rotate: urgency !== "normal" ? [0, -5, 5, 0] : 0 }}
             transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
           >
-            <MessageIcon className="w-8 h-8 md:w-10 md:h-10" />
+            <MessageIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
           </motion.div>
-          <span className="text-xl md:text-2xl font-bold text-center">{message.text}</span>
-          <span className="text-sm md:text-base opacity-80">{message.subtext}</span>
+          <span className="text-base sm:text-xl md:text-2xl font-bold text-center px-2">{message.text}</span>
+          <span className="text-xs sm:text-sm md:text-base opacity-80">{message.subtext}</span>
         </motion.div>
 
         {/* Número grande de ingressos disponíveis */}
         <motion.div 
-          className="text-center mb-6"
+          className="text-center mb-4 sm:mb-6"
           animate={urgency !== "normal" ? { scale: [1, 1.02, 1] } : {}}
           transition={{ duration: 1.5, repeat: Infinity }}
         >
           <motion.span 
-            className={`text-5xl md:text-7xl font-black ${message.color}`}
+            className={`text-4xl sm:text-5xl md:text-7xl font-black ${message.color}`}
             animate={urgency === "critical" ? { 
               opacity: [1, 0.7, 1],
               textShadow: [
@@ -169,21 +169,21 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
           >
             {availableTickets}
           </motion.span>
-          <span className="block text-lg md:text-xl text-foreground/70 font-medium mt-1">
+          <span className="block text-sm sm:text-lg md:text-xl text-foreground/70 font-medium mt-1">
             ingressos restantes de {totalTickets}
           </span>
         </motion.div>
 
         {/* Barra de progresso grande */}
         <div className="relative">
-          <div className="flex justify-between text-sm text-muted-foreground mb-3 font-medium">
+          <div className="flex justify-between text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3 font-medium">
             <span>Esgotado</span>
             <span>Disponível</span>
           </div>
           
           {/* Container da barra com espaço extra para o indicador */}
-          <div className="relative h-10 md:h-12 flex items-center">
-            <div className="h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50 w-full">
+          <div className="relative h-8 sm:h-10 md:h-12 flex items-center">
+            <div className="h-5 sm:h-6 md:h-8 bg-background/50 rounded-full overflow-hidden relative border border-border/50 w-full">
               {/* Barra preenchida (ingressos já usados) */}
               <motion.div
                 className={`h-full bg-gradient-to-r ${getBarColor()} rounded-full relative overflow-hidden`}
@@ -198,12 +198,12 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
                   transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5 }}
                 />
                 
-                {/* Partículas brilhantes */}
-                {urgency !== "normal" && [...Array(5)].map((_, i) => (
+                {/* Partículas brilhantes - menos em mobile */}
+                {urgency !== "normal" && [...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1 h-full bg-white/60"
-                    style={{ left: `${20 * i}%` }}
+                    className="absolute w-0.5 sm:w-1 h-full bg-white/60"
+                    style={{ left: `${30 * i}%` }}
                     animate={{ opacity: [0, 1, 0], scaleY: [0.5, 1, 0.5] }}
                     transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
                   />
@@ -213,27 +213,27 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
             
             {/* Indicador pulsante - posicionado verticalmente no centro */}
             <motion.div
-              className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
+              className="absolute w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full bg-white shadow-2xl flex items-center justify-center z-10 border-2 border-primary/30"
               style={{ 
-                left: `calc(${Math.max(3, Math.min(97, usedPercentage))}% - 16px)`
+                left: `calc(${Math.max(3, Math.min(97, usedPercentage))}% - 12px)`
               }}
               initial={{ scale: 0 }}
               animate={{ 
                 scale: [1, 1.15, 1],
                 boxShadow: [
                   "0 0 0 0 rgba(147, 51, 234, 0.4)",
-                  "0 0 0 12px rgba(147, 51, 234, 0)",
+                  "0 0 0 8px rgba(147, 51, 234, 0)",
                   "0 0 0 0 rgba(147, 51, 234, 0)"
                 ]
               }}
               transition={{ duration: 1.2, repeat: Infinity, delay: 2 }}
             >
-              <Flame className="w-4 h-4 md:w-5 md:h-5 text-orange-500" />
+              <Flame className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-orange-500" />
             </motion.div>
           </div>
 
           {/* Labels abaixo da barra */}
-          <div className="flex justify-between text-xs md:text-sm text-muted-foreground mt-2">
+          <div className="flex justify-between text-[10px] sm:text-xs md:text-sm text-muted-foreground mt-1.5 sm:mt-2">
             <span>{Math.round(usedPercentage)}% preenchido</span>
             <span>{Math.round(percentage)}% disponível</span>
           </div>
@@ -242,20 +242,20 @@ const ScarcityBar = ({ availableTickets, totalTickets }: ScarcityBarProps) => {
         {/* Texto adicional de escassez crítica */}
         {urgency === "critical" && (
           <motion.div
-            className="mt-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
+            className="mt-4 sm:mt-6 p-3 sm:p-4 bg-red-500/10 border border-red-500/30 rounded-lg sm:rounded-xl"
             animate={{ opacity: [1, 0.8, 1], borderColor: ["rgba(239,68,68,0.3)", "rgba(239,68,68,0.6)", "rgba(239,68,68,0.3)"] }}
             transition={{ duration: 1, repeat: Infinity }}
           >
-            <p className="text-center text-sm md:text-base text-red-400 font-semibold flex items-center justify-center gap-2">
-              <AlertTriangle className="w-5 h-5" />
-              ⚠️ Os últimos ingressos estão sendo reservados AGORA!
+            <p className="text-center text-xs sm:text-sm md:text-base text-red-400 font-semibold flex items-center justify-center gap-1.5 sm:gap-2">
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <span>⚠️ Os últimos ingressos estão sendo reservados AGORA!</span>
             </p>
           </motion.div>
         )}
 
         {urgency === "high" && (
           <motion.p
-            className="text-center text-sm text-orange-400 mt-4 font-medium"
+            className="text-center text-xs sm:text-sm text-orange-400 mt-3 sm:mt-4 font-medium"
             animate={{ opacity: [1, 0.7, 1] }}
             transition={{ duration: 1.2, repeat: Infinity }}
           >
