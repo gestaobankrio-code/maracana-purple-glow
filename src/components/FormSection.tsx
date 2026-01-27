@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle, FileText } from "lucide-react";
+import { ArrowRight, Sparkles, User, Mail, Phone, Gift, Star, Trophy, Wallet, PartyPopper, X, Clock, AlertTriangle, FileText, CheckCircle } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
@@ -711,23 +711,48 @@ const FormSection = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 1.37 }}
+                className="relative"
               >
                 <label className="flex items-start gap-2 text-foreground text-xs sm:text-sm font-semibold mb-2 sm:mb-3">
                   <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary mt-0.5 flex-shrink-0" />
                   <span>Crie uma frase criativa sobre o tema: A importância da educação financeira na vida das pessoas <span className="text-primary">*</span></span>
                 </label>
-                <textarea
-                  name="creativePhrase"
-                  value={formData.creativePhrase}
-                  onChange={handleChange}
-                  placeholder="Escreva sua frase criativa aqui..."
-                  required
-                  rows={3}
-                  maxLength={500}
-                  className="w-full bg-background/80 border-2 border-border/60 focus:border-primary rounded-xl text-sm sm:text-base md:text-lg px-4 sm:px-5 py-3 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-0 resize-none"
-                />
-                <div className="flex justify-end mt-1.5">
-                  <span className={`text-xs ${formData.creativePhrase.length >= 450 ? 'text-amber-500' : 'text-muted-foreground'} ${formData.creativePhrase.length >= 500 ? 'text-destructive' : ''}`}>
+                <div className="relative">
+                  <textarea
+                    name="creativePhrase"
+                    value={formData.creativePhrase}
+                    onChange={handleChange}
+                    placeholder="Escreva sua frase criativa aqui..."
+                    required
+                    rows={3}
+                    maxLength={500}
+                    className={`w-full bg-background/80 border-2 rounded-xl text-sm sm:text-base md:text-lg px-4 sm:px-5 py-3 transition-all duration-300 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-0 resize-none ${
+                      formData.creativePhrase.length >= 20 
+                        ? 'border-green-500/60 shadow-lg shadow-green-500/20 bg-green-500/5' 
+                        : 'border-border/60 focus:border-primary focus:shadow-lg focus:shadow-primary/20'
+                    }`}
+                  />
+                  {formData.creativePhrase.length >= 20 && (
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                    >
+                      <CheckCircle className="w-4 h-4 text-white" />
+                    </motion.div>
+                  )}
+                </div>
+                <div className="flex justify-between items-center mt-1.5">
+                  {formData.creativePhrase.length >= 20 && (
+                    <motion.span 
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="text-xs text-green-500 font-medium"
+                    >
+                      ✨ Ótima frase!
+                    </motion.span>
+                  )}
+                  <span className={`text-xs ml-auto ${formData.creativePhrase.length >= 450 ? 'text-amber-500' : 'text-muted-foreground'} ${formData.creativePhrase.length >= 500 ? 'text-destructive' : ''} ${formData.creativePhrase.length >= 20 && formData.creativePhrase.length < 450 ? 'text-green-500' : ''}`}>
                     {formData.creativePhrase.length}/500 caracteres
                   </span>
                 </div>
