@@ -50,6 +50,7 @@ const FormSection = () => {
     email: "",
     phone: "",
     investmentAmount: "",
+    creativePhrase: "",
   });
   const [acceptedRegulation, setAcceptedRegulation] = useState(false);
 
@@ -329,7 +330,7 @@ const FormSection = () => {
     e.preventDefault();
     
     // Validação de todos os campos obrigatórios
-    if (!formData.name || !formData.email || !formData.phone || !formData.investmentAmount) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.investmentAmount || !formData.creativePhrase) {
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos do formulário.",
@@ -358,6 +359,7 @@ const FormSection = () => {
           email: formData.email,
           phone: formData.phone,
           investmentAmount: formData.investmentAmount,
+          creativePhrase: formData.creativePhrase,
         },
       });
 
@@ -396,7 +398,7 @@ const FormSection = () => {
         return newValue;
       });
 
-      setFormData({ name: "", email: "", phone: "", investmentAmount: "" });
+      setFormData({ name: "", email: "", phone: "", investmentAmount: "", creativePhrase: "" });
       setAcceptedRegulation(false);
     } catch (err) {
       console.error('Unexpected error:', err);
@@ -410,7 +412,7 @@ const FormSection = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === 'phone') {
       setFormData((prev) => ({ ...prev, [name]: formatPhone(value) }));
@@ -704,7 +706,27 @@ const FormSection = () => {
                 </Select>
               </motion.div>
 
-              {/* Aceite do Regulamento */}
+              {/* Campo Frase Criativa */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 1.37 }}
+              >
+                <label className="flex items-start gap-2 text-foreground text-xs sm:text-sm font-semibold mb-2 sm:mb-3">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span>Crie uma frase criativa sobre o tema: A importância da educação financeira na vida das pessoas <span className="text-primary">*</span></span>
+                </label>
+                <textarea
+                  name="creativePhrase"
+                  value={formData.creativePhrase}
+                  onChange={handleChange}
+                  placeholder="Escreva sua frase criativa aqui..."
+                  required
+                  rows={3}
+                  className="w-full bg-background/80 border-2 border-border/60 focus:border-primary rounded-xl text-sm sm:text-base md:text-lg px-4 sm:px-5 py-3 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-0 resize-none"
+                />
+              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}

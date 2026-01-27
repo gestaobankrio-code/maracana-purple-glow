@@ -6,7 +6,7 @@ const corsHeaders = {
 };
 
 // Google Sheets API configuration
-const SPREADSHEET_ID = '1CP1qXQD7MgVtXfe-hPv-z_ThlT9aD3lGzcQZ2lhIZKU';
+const SPREADSHEET_ID = '18RT3H-tnXDqdL6Wrg3YN4mB7lyJn3Z1LWKFKnHovm2I';
 const SHEET_NAME = 'Página1';
 
 async function getAccessToken(): Promise<string> {
@@ -105,7 +105,7 @@ async function getAccessToken(): Promise<string> {
 }
 
 async function appendToSheet(accessToken: string, values: string[]): Promise<void> {
-  const range = encodeURIComponent(`${SHEET_NAME}!A:D`);
+  const range = encodeURIComponent(`${SHEET_NAME}!A:E`);
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
 
   const response = await fetch(url, {
@@ -135,12 +135,12 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, phone, investmentAmount } = await req.json();
+    const { name, email, phone, investmentAmount, creativePhrase } = await req.json();
 
-    console.log('Received form data:', { name, email, phone, investmentAmount });
+    console.log('Received form data:', { name, email, phone, investmentAmount, creativePhrase });
 
     // Validate required fields
-    if (!name || !email || !phone || !investmentAmount) {
+    if (!name || !email || !phone || !investmentAmount || !creativePhrase) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         { 
@@ -152,7 +152,7 @@ serve(async (req) => {
 
     // Get access token and append to sheet
     const accessToken = await getAccessToken();
-    await appendToSheet(accessToken, [name, email, phone, investmentAmount]);
+    await appendToSheet(accessToken, [name, email, phone, investmentAmount, creativePhrase]);
 
     return new Response(
       JSON.stringify({ success: true, message: 'Data submitted successfully' }),
