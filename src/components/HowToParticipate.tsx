@@ -96,8 +96,8 @@ const HowToParticipate = () => {
           transition={{ duration: 0.7, delay: 0.6 }}
           className="max-w-3xl mx-auto mb-16"
         >
-          <p className="text-xl md:text-2xl text-primary font-bold text-center mb-8">
-            Para participar, é só:
+          <p className="text-2xl md:text-3xl text-primary font-bold text-center mb-8">
+            Para participar
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             {/* Card 1 */}
@@ -116,11 +116,14 @@ const HowToParticipate = () => {
                 <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
                   Passo 01
                 </span>
-                <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
+                <h3 className="text-lg md:text-xl text-foreground font-bold mb-4">
                   Crie sua frase criativa
                 </h3>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Sobre o tema: <span className="text-primary/80 italic">"A importância da educação financeira na vida das pessoas"</span>
+                <p className="text-sm text-foreground/60 leading-relaxed mb-3">
+                  Sobre o tema:
+                </p>
+                <p className="text-base md:text-lg text-primary font-semibold leading-relaxed italic">
+                  "A importância da educação financeira na vida das pessoas"
                 </p>
               </a>
             </motion.div>
