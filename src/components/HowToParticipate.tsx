@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { UserPlus, Wallet, Trophy, Gift, Building, PenLine } from "lucide-react";
+import { Wallet, Trophy, Gift, Building, PenLine, Ticket } from "lucide-react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
 import ticketTorcida from "@/assets/ticket-torcida.png";
 
@@ -14,27 +14,6 @@ const HowToParticipate = () => {
   });
   
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-
-  const steps = [
-    {
-      number: "01",
-      title: "Inscreva-se na campanha",
-      description: "Preencha seus dados no formulário abaixo",
-      icon: UserPlus,
-    },
-    {
-      number: "02",
-      title: "Abra sua conta na XP",
-      description: "Processo digital, simples e sem custo com suporte da InvestSmart",
-      icon: Wallet,
-    },
-    {
-      number: "03",
-      title: "Concorra aos ingressos",
-      description: "Várias chances ao longo da campanha, sempre com 1 par de ingressos",
-      icon: Trophy,
-    },
-  ];
 
   const clarityPoints = [
     { icon: Gift, text: "Serão distribuídos 300 ingressos no total" },
@@ -120,7 +99,7 @@ const HowToParticipate = () => {
           <p className="text-xl md:text-2xl text-primary font-bold text-center mb-8">
             Para participar, é só:
           </p>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Card 1 */}
             <motion.div
               initial={{ opacity: 0, y: 50, rotateX: 20 }}
@@ -170,56 +149,33 @@ const HowToParticipate = () => {
                 </p>
               </a>
             </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Steps */}
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto mb-20">
-          {steps.map((step, index) => (
+            {/* Card 3 */}
             <motion.div
-              key={step.number}
               initial={{ opacity: 0, y: 50, rotateX: 20 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-              transition={{ 
-                duration: 0.7, 
-                delay: 0.3 + index * 0.2,
-                type: "spring",
-                stiffness: 100
-              }}
-              className="relative"
+              transition={{ duration: 0.7, delay: 1.1, type: "spring", stiffness: 100 }}
             >
-              {/* Connector Line */}
-              {index < steps.length - 1 && (
-                <motion.div 
-                  className="hidden md:block absolute top-12 left-[55%] w-[90%] h-px bg-gradient-to-r from-primary/30 to-transparent"
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
-                />
-              )}
-              
               <a 
                 href="#inscricao"
                 className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
               >
-                {/* Step Icon */}
                 <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
-                  <step.icon className="w-6 h-6 text-primary" />
+                  <Ticket className="w-6 h-6 text-primary" />
                 </div>
-                
                 <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
-                  Passo {step.number}
+                  Passo 03
                 </span>
                 <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
-                  {step.title}
+                  Concorra aos ingressos
                 </h3>
                 <p className="text-sm text-foreground/60 leading-relaxed">
-                  {step.description}
+                  Várias chances ao longo da campanha
                 </p>
               </a>
             </motion.div>
-          ))}
-        </div>
+          </div>
+        </motion.div>
 
         {/* Clarity Box */}
         <motion.div
