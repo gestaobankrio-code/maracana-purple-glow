@@ -100,7 +100,7 @@ const HowToParticipate = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="max-w-3xl mx-auto mb-12"
         >
-          <div className="text-center space-y-4">
+          <div className="text-left space-y-4">
             <p className="text-lg text-foreground/80 leading-relaxed">
               A <span className="text-primary font-semibold">InvestSmart</span> acredita que educação financeira transforma vidas, realiza sonhos e cria experiências inesquecíveis.
             </p>
@@ -109,7 +109,7 @@ const HowToParticipate = () => {
             </p>
             <div className="pt-4">
               <p className="text-base text-foreground/70 font-medium mb-4">Para participar, é só:</p>
-              <div className="flex flex-col items-start gap-3 max-w-md mx-auto text-left">
+              <div className="flex flex-col items-start gap-3 text-left">
                 <div className="flex items-start gap-3">
                   <span className="text-primary font-bold">1️⃣</span>
                   <p className="text-foreground/80">Criar uma frase criativa sobre o tema: <span className="text-primary font-medium italic">"A importância da educação financeira na vida das pessoas"</span></p>
