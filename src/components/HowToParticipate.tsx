@@ -73,7 +73,7 @@ const HowToParticipate = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <motion.h2 
             className="text-3xl md:text-4xl lg:text-5xl text-foreground font-bold mb-2 tracking-tight"
@@ -91,6 +91,36 @@ const HowToParticipate = () => {
           >
             e concorrer
           </motion.p>
+        </motion.div>
+
+        {/* Intro Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="max-w-3xl mx-auto mb-12"
+        >
+          <div className="text-center space-y-4">
+            <p className="text-lg text-foreground/80 leading-relaxed">
+              A <span className="text-primary font-semibold">InvestSmart</span> acredita que educação financeira transforma vidas, realiza sonhos e cria experiências inesquecíveis.
+            </p>
+            <p className="text-lg text-foreground/80 leading-relaxed">
+              Para celebrar a parceria com o Maracanã, criamos um <span className="text-primary font-semibold">Concurso Cultural</span> exclusivo da Torcida InvestSmart, onde você pode concorrer a experiências especiais no templo do futebol.
+            </p>
+            <div className="pt-4">
+              <p className="text-base text-foreground/70 font-medium mb-4">Para participar, é só:</p>
+              <div className="flex flex-col items-start gap-3 max-w-md mx-auto text-left">
+                <div className="flex items-start gap-3">
+                  <span className="text-primary font-bold">1️⃣</span>
+                  <p className="text-foreground/80">Criar uma frase criativa sobre o tema: <span className="text-primary font-medium italic">"A importância da educação financeira na vida das pessoas"</span></p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-primary font-bold">2️⃣</span>
+                  <p className="text-foreground/80">Abrir sua conta na InvestSmart e participar do concurso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Steps */}

@@ -723,8 +723,14 @@ const FormSection = () => {
                   placeholder="Escreva sua frase criativa aqui..."
                   required
                   rows={3}
+                  maxLength={500}
                   className="w-full bg-background/80 border-2 border-border/60 focus:border-primary rounded-xl text-sm sm:text-base md:text-lg px-4 sm:px-5 py-3 transition-all focus:shadow-lg focus:shadow-primary/20 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-0 resize-none"
                 />
+                <div className="flex justify-end mt-1.5">
+                  <span className={`text-xs ${formData.creativePhrase.length >= 450 ? 'text-amber-500' : 'text-muted-foreground'} ${formData.creativePhrase.length >= 500 ? 'text-destructive' : ''}`}>
+                    {formData.creativePhrase.length}/500 caracteres
+                  </span>
+                </div>
               </motion.div>
 
               <motion.div
