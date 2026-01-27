@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { UserPlus, Wallet, Trophy, Gift, CheckCircle, Building } from "lucide-react";
+import { UserPlus, Wallet, Trophy, Gift, Building, PenLine } from "lucide-react";
 import maracanaStadium from "@/assets/maracana-stadium.avif";
 import ticketTorcida from "@/assets/ticket-torcida.png";
 
@@ -123,39 +123,52 @@ const HowToParticipate = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {/* Card 1 */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="bg-background/80 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/50 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_hsl(258_96%_70%_/_0.3)]"
+              initial={{ opacity: 0, y: 50, rotateX: 20 }}
+              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.7, type: "spring", stiffness: 100 }}
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
-              <div className="flex items-start gap-4">
-                <span className="text-3xl font-bold text-primary">1️⃣</span>
-                <div>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Criar uma frase criativa sobre o tema:
-                  </p>
-                  <p className="text-primary font-semibold italic mt-2">
-                    "A importância da educação financeira na vida das pessoas"
-                  </p>
+              <a 
+                href="#inscricao"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
+              >
+                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                  <PenLine className="w-6 h-6 text-primary" />
                 </div>
-              </div>
+                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                  Passo 01
+                </span>
+                <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
+                  Crie sua frase criativa
+                </h3>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Sobre o tema: <span className="text-primary/80 italic">"A importância da educação financeira na vida das pessoas"</span>
+                </p>
+              </a>
             </motion.div>
 
             {/* Card 2 */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="bg-background/80 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/50 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_hsl(258_96%_70%_/_0.3)]"
+              initial={{ opacity: 0, y: 50, rotateX: 20 }}
+              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.9, type: "spring", stiffness: 100 }}
             >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
-              <div className="flex items-start gap-4">
-                <span className="text-3xl font-bold text-primary">2️⃣</span>
-                <p className="text-foreground/90 leading-relaxed">
-                  Abrir sua conta na InvestSmart e participar do concurso.
+              <a 
+                href="#inscricao"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
+              >
+                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                  <Wallet className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                  Passo 02
+                </span>
+                <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
+                  Abra sua conta na InvestSmart
+                </h3>
+                <p className="text-sm text-foreground/60 leading-relaxed">
+                  Processo digital, simples e sem custo
                 </p>
-              </div>
+              </a>
             </motion.div>
           </div>
         </motion.div>
