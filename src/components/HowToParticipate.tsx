@@ -107,19 +107,56 @@ const HowToParticipate = () => {
             <p className="text-lg text-foreground/80 leading-relaxed">
               Para celebrar a parceria com o Maracanã, criamos um <span className="text-primary font-semibold">Concurso Cultural</span> exclusivo da Torcida InvestSmart, onde você pode concorrer a experiências especiais no templo do futebol.
             </p>
-            <div className="pt-4">
-              <p className="text-base text-foreground/70 font-medium mb-4">Para participar, é só:</p>
-              <div className="flex flex-col items-start gap-3 text-left">
-                <div className="flex items-start gap-3">
-                  <span className="text-primary font-bold">1️⃣</span>
-                  <p className="text-foreground/80">Criar uma frase criativa sobre o tema: <span className="text-primary font-medium italic">"A importância da educação financeira na vida das pessoas"</span></p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-primary font-bold">2️⃣</span>
-                  <p className="text-foreground/80">Abrir sua conta na InvestSmart e participar do concurso.</p>
+          </div>
+        </motion.div>
+
+        {/* Participation Cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="max-w-3xl mx-auto mb-16"
+        >
+          <p className="text-xl md:text-2xl text-primary font-bold text-center mb-8">
+            Para participar, é só:
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Card 1 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="bg-background/80 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/50 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_hsl(258_96%_70%_/_0.3)]"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
+              <div className="flex items-start gap-4">
+                <span className="text-3xl font-bold text-primary">1️⃣</span>
+                <div>
+                  <p className="text-foreground/90 leading-relaxed">
+                    Criar uma frase criativa sobre o tema:
+                  </p>
+                  <p className="text-primary font-semibold italic mt-2">
+                    "A importância da educação financeira na vida das pessoas"
+                  </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="bg-background/80 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 relative overflow-hidden group hover:border-primary/50 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_hsl(258_96%_70%_/_0.3)]"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
+              <div className="flex items-start gap-4">
+                <span className="text-3xl font-bold text-primary">2️⃣</span>
+                <p className="text-foreground/90 leading-relaxed">
+                  Abrir sua conta na InvestSmart e participar do concurso.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
