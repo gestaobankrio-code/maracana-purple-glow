@@ -99,32 +99,35 @@ const HowToParticipate = () => {
           <p className="text-2xl md:text-3xl text-primary font-bold text-center mb-8">
             Para participar
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             {/* Card 1 */}
             <motion.div
               initial={{ opacity: 0, y: 50, rotateX: 20 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.7, type: "spring", stiffness: 100 }}
+              className="h-full"
             >
               <a 
                 href="#inscricao"
-                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-6 md:p-8 text-center relative z-10 h-full flex flex-col cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
               >
-                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
-                  <PenLine className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 md:mb-5 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                  <PenLine className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                <span className="text-primary text-xs font-semibold tracking-widest mb-2 block uppercase">
                   Passo 01
                 </span>
-                <h3 className="text-lg md:text-xl text-foreground font-bold mb-4">
+                <h3 className="text-base md:text-lg text-foreground font-bold mb-3">
                   Crie sua frase criativa
                 </h3>
-                <p className="text-sm text-foreground/60 leading-relaxed mb-3">
-                  Sobre o tema:
-                </p>
-                <p className="text-base md:text-lg text-primary font-semibold leading-relaxed italic">
-                  "A importância da educação financeira na vida das pessoas"
-                </p>
+                <div className="flex-1 flex flex-col justify-center">
+                  <p className="text-xs md:text-sm text-foreground/60 leading-relaxed mb-2">
+                    Sobre o tema:
+                  </p>
+                  <p className="text-sm md:text-base text-primary font-semibold leading-relaxed italic">
+                    "A importância da educação financeira na vida das pessoas"
+                  </p>
+                </div>
               </a>
             </motion.div>
 
@@ -133,23 +136,26 @@ const HowToParticipate = () => {
               initial={{ opacity: 0, y: 50, rotateX: 20 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.9, type: "spring", stiffness: 100 }}
+              className="h-full"
             >
               <a 
                 href="#inscricao"
-                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-6 md:p-8 text-center relative z-10 h-full flex flex-col cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
               >
-                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
-                  <Wallet className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 md:mb-5 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                  <Wallet className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                <span className="text-primary text-xs font-semibold tracking-widest mb-2 block uppercase">
                   Passo 02
                 </span>
-                <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
+                <h3 className="text-base md:text-lg text-foreground font-bold mb-3">
                   Abra sua conta na InvestSmart
                 </h3>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Processo digital, simples e sem custo
-                </p>
+                <div className="flex-1 flex flex-col justify-center">
+                  <p className="text-xs md:text-sm text-foreground/60 leading-relaxed">
+                    Processo digital, simples e sem custo
+                  </p>
+                </div>
               </a>
             </motion.div>
 
@@ -158,23 +164,26 @@ const HowToParticipate = () => {
               initial={{ opacity: 0, y: 50, rotateX: 20 }}
               animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
               transition={{ duration: 0.7, delay: 1.1, type: "spring", stiffness: 100 }}
+              className="h-full"
             >
               <a 
                 href="#inscricao"
-                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-8 text-center relative z-10 h-full block cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
+                className="bg-background/80 backdrop-blur-sm border border-primary/20 rounded-2xl p-6 md:p-8 text-center relative z-10 h-full flex flex-col cursor-pointer group transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_40px_-15px_hsl(258_96%_70%_/_0.3)]"
               >
-                <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
-                  <Ticket className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 md:mb-5 rounded-2xl bg-primary/15 flex items-center justify-center transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                  <Ticket className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <span className="text-primary text-xs font-semibold tracking-widest mb-3 block uppercase">
+                <span className="text-primary text-xs font-semibold tracking-widest mb-2 block uppercase">
                   Passo 03
                 </span>
-                <h3 className="text-lg md:text-xl text-foreground font-bold mb-3">
+                <h3 className="text-base md:text-lg text-foreground font-bold mb-3">
                   Concorra aos ingressos
                 </h3>
-                <p className="text-sm text-foreground/60 leading-relaxed">
-                  Várias chances ao longo da campanha
-                </p>
+                <div className="flex-1 flex flex-col justify-center">
+                  <p className="text-xs md:text-sm text-foreground/60 leading-relaxed">
+                    Várias chances ao longo da campanha
+                  </p>
+                </div>
               </a>
             </motion.div>
           </div>
