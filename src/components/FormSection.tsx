@@ -795,7 +795,7 @@ const FormSection = () => {
                         <div className="space-y-4 text-sm">
                           <div>
                             <h4 className="font-bold text-foreground mb-2">1. DO CONCURSO</h4>
-                            <p>1.1. O presente concurso cultural, promovido pela InvestSmart, tem por finalidade promover o relacionamento institucional com seus clientes, sem qualquer modalidade de sorte, pagamento ou contraprestação.</p>
+                            <p>1.1. O presente concurso cultural, promovido pela InvestSmart, tem por finalidade promover o relacionamento institucional com seus clientes, sem qualquer modalidade de sorte, pagamento ou contraprestação, incentivando a reflexão e a criatividade dos participantes por meio da elaboração de uma frase original sobre o tema: "A importância da educação financeira na vida das pessoas"</p>
                             <p>1.2. O concurso possui caráter exclusivamente cultural, sem qualquer modalidade de sorte, compra vinculada, pagamento ou exigência de contratação de serviços, em conformidade com a legislação aplicável.</p>
                           </div>
 
@@ -807,14 +807,18 @@ const FormSection = () => {
                           <div>
                             <h4 className="font-bold text-foreground mb-2">3. COMO PARTICIPAR</h4>
                             <p>3.1. Poderão participar do concurso cultural os clientes da PROMOTORA que atendam aos critérios de elegibilidade definidos pela InvestSmart.</p>
-                            <p>3.2. A participação é totalmente gratuita, sem qualquer exigência financeira ou comercial.</p>
-                            <p>3.3. Cada participante poderá ser contemplado 01 vez durante o período de vigência do concurso.</p>
+                            <p>3.2. Para participar, o interessado deverá:</p>
+                            <p className="pl-4">i. criar uma frase original sobre o tema "A importância da educação financeira na vida das pessoas"; e</p>
+                            <p className="pl-4">ii. possuir conta ativa na InvestSmart, observadas as demais condições deste Regulamento.</p>
+                            <p>3.3. A participação é totalmente gratuita, sem qualquer exigência financeira ou comercial.</p>
+                            <p>3.4. Cada participante poderá ser contemplado 01 vez durante o período de vigência do concurso.</p>
                           </div>
 
                           <div>
                             <h4 className="font-bold text-foreground mb-2">4. FORMA DE SELEÇÃO</h4>
                             <p>4.1. A escolha do participante contemplado será realizada com base em critérios institucionais e objetivos, definidos pela PROMOTORA, tais como, exemplificativamente:</p>
                             <ul className="list-disc pl-5 space-y-1 mt-2">
+                              <li>criatividade, originalidade, clareza na mensagem, adequação ao tema;</li>
                               <li>perfil de relacionamento com a InvestSmart;</li>
                               <li>aderência ao propósito institucional do evento; e</li>
                               <li>histórico de relacionamento com a empresa.</li>
