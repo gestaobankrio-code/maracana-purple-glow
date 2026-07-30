@@ -59,7 +59,7 @@ const AboutSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
   const stats = [
-    { value: "29", suffix: "bilhões", prefix: "Mais de R$", desc: "sob custódia", icon: DollarSign },
+    { value: "30", suffix: "bilhões", prefix: "Mais de R$", desc: "sob custódia", icon: DollarSign },
     { value: "100", suffix: "", prefix: "Mais de", desc: "escritórios no Brasil", icon: Building2 },
     { value: "200", suffix: "mil", prefix: "Mais de", desc: "clientes atendidos", icon: Users },
     { value: "2.000", suffix: "", prefix: "Mais de", desc: "colaboradores e assessores", icon: Briefcase },
